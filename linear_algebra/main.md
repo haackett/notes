@@ -1,5 +1,6 @@
 # Linear Algebra II 
 # Factorization of Linear Maps
+
 # 0 Motivation
 
 *8/23/22*
@@ -77,7 +78,12 @@ here are the potential factorizations of $A$ in order of "niceness":
 3. Jordan Canonical Form
 4. Singular Value Decomposition
 
+A string __contains__ a string $b$ i
+
 # 1 Vector Spaces
+
+*8/25/22*
+
 
 ## 1.1 Note
 
@@ -93,7 +99,7 @@ a,b\in F:$
 4. $\exists \vec{-x} \in V : \vec{x} + \vec{-x} = \vec{0}$
 5. $a(\vec{x} + \vec{y}) = a\vec{x} + a\vec{y}$
 6. $(a+b)\vec{x} = a\vec{x} + b\vec{x}$
-7. $1 \times \vec{x} = \vec{x}$
+7. $1 \cdot \vec{x} = \vec{x}$
 8. $a(b\vec{x}) = (ab)\vec{x}$
 
 ## 1.3 God-given Examples
@@ -131,3 +137,405 @@ __Thm__ $V$ an $F$-v.s. If $U$ is a subset, then $U$ is a subspace $\iff$
 __Pf__ By homework.
 
 ## 1.7 Examples
+
+1. $\mathbb{C}[x] = \left\{ \sum_{i=0}^n a_ix^i : a_i \in \mathbb{C}, n \in Z_{\geq 0}\right\}$.
+2. The set of solutions to a linear, constant coefficient, homogeneous ordinary differential equation.
+3. $\mathcal{C}^o(\mathbb{R}) = \left\{ f: \mathbb{R} \rightarrow \mathbb{R}, f continuous \right\}$.
+4. For any $F$-v.s. $V$, ${\vec{0}}$ and $V$ are subspaces.
+
+## 1.8 Definition
+*8/30/22*
+
+__Def__ Let $S = {\vec{v}_1, ..., \vec{v}_n}$ and V an $F$-v.s:
+
+
+a. A linear combination of the elements of $F$ is a vector of the form
+$$a_1\vec{v}_1 + ... + a_n\vec{v}_n, a_i \in F.$$
+
+b. $Span(S) = \left\{ \sum_{i=1}^n a_i\vec{v}_i | a_i \in F \right\}$
+
+c. If some set $W=Span(S)$, then we say $S$ spans $W$. 
+
+## 1.9 Theorem
+
+__Thm__ $V$ an $F$-v.s., let $S=\{\vec{v}_1,...,\vec{v}_n\}$ be a non-empty set,
+then the span of $F$ is a vector subspace.
+
+__Pf__ 
+i. $$0\vec{v}_1 + ... + 0\vec{v}_n \in Span(S).$$
+$$ 0\vec{v}_1 + ... + 0\vec{v}_n = \vec{0}.$$
+So $Span(S) \neq \emptyset$.
+
+ii. Let $\vec{x},\vec{y} \in Span(S)$.
+
+$$\vec{x} = \sum_{i=1}^n a_i\vec{v}_i.$$
+$$\vec{y} = \sum_{i=1}^n b_i\vec{v}_i.$$
+$$\vec{x} + \vec{y} = \sum_{i=1}^n (a_i + b_i)\vec{v}_i .$$
+So $\vec{x} + \vec{y} \in Span(S)$.
+
+iii. Let $c\in F$ and $\vec{x} \in Span(S)$. Then
+
+$$c\vec{x} = c \sum_{i=1}^n a_i\vec{v_i} = \sum_{i=1}^n (ca_i)\vec{v_i}.$$
+So $c\vec{x} \in Span(S)$.
+
+## 1.10 Theorem
+
+__Thm__ $V$ an $F$-v.s. and $S \subseteq V$. If $W$ is a subspace of $V$ and
+$S$ is a subset of $W$, then $Span(S) \subseteq W$.
+
+__Pf__ By HW.
+
+## 1.11 Definition
+
+__Def__ $V$ an $F$-v.s. If $V$ is spanned by a finite set, then $V$ is a 
+finite-dimensional vector space. Otherwise, $V$ is an infinite dimensional 
+vector space.
+
+## 1.12 Definition
+
+__Def__ An ordered set $S=\{\vec{v}_1,...,\vec{v}_n \}$ is called linearly 
+independent if whenever
+
+$$ a_1\vec{v}_1 + ... + a_n\vec{v}_n = \vec{0}, a_1 = ... = a_n = 0.$$
+
+Otherwise, $S$ is linearly dependent.
+
+## 1.13 Examples
+
+a. $S = \{ sin^2(x), cos^2(x), 1 \} \subseteq \mathcal{C}^o([-\pi, \pi]).$ Linearly dependent because $a_1 = 1, a_2= 1, a_3=-1$.
+b. $S = \{ 1,x,x^2 \} \subseteq \mathbb{C}[x]$. $a1 + bx + cx^2 = 0 \iff a=b=c=0$ by polynomial equality. So $S$ is linearly independent.
+c. Consider $y^{\prime\prime} - 5y^{\prime} + 6y = 0$. Then solutions are of the form $y(t) = c_1e^{2t} + c_2e^{3t}, c_1,c_2 \in \mathbb{R}$. The solution set is equal to $Span(\{ e^{2t}, e^{3t} \})$.
+
+## 1.14 Theorem
+
+__Thm__ $V$ an $F$-v.s.
+
+a. $\vec{0} \in S \implies S$ is linearly dependent.
+b. $S = \{\vec{v}_1 \} \implies$ (S is linearly independent $\iff \vec{v} \neq \vec{0})$.
+c. $S = \{ \vec{v}, \vec{w} \}$ is linearly independent $\iff \vec{v} \neq a\vec{w}, \forall a \in F$.
+
+__Pf__ By Homework.
+
+## 1.15 Theorem
+
+__Thm__ Let $V$ an $F$-v.s., $S = \{\vec{v}_1, ..., \vec{v}_n \} \subseteq V$, and $m > 1$.
+
+a. If $\vec{v}_1 \neq \vec{0}$, then $S$ is linearly dependent $\iff \exists j \in \{2,...,m \}$ such that $\vec{v}_j \in Span(\{v_1,...,v_{j-1} \}).$
+b. If $\vec{v}_j \in Span(\{ \vec{v}_1, ..., \vec{v}_n \}), j \in \{2,...,m\},$
+$$Span(S) = Span(S \setminus \{\vec{v}_j \}).$$
+
+__Pf__ By Homeowork
+
+## 1.18 Theorem
+*9/1/22*
+
+__Thm__ $V$ a f.d, $F$-v.s. and $V \neq \{\vec{0}\}$. Suppose $S = \{ \vec{v}_1,...\vec{v}_n \}$ is a non-empty spanning set for $V$ i.e. $V=Span(S)$. Then some subset of $S$ is a basis for $V$.
+
+__Pf__ If $S$ is lin. ind., then we are done. Else $S$ is lin. dependent.
+
+Cases
+\begin{enumerate}
+	\item[i] If $ \vec{v}_1 = \vec{0}$, then let $S_1 = S \setminus \{ \vec{v}_1 \}$.
+\item[ii] Else, $\vec{v}_1 \neq \vec{0}$, and by Theorem 1.15 $\exists j \in \{2,\dots, m \}$ such that 
+$$ \vec{v}_j \in Span\{\vec{v}_1, \dots,\vec{v}_{j-1} \}$$
+and
+$$Span(S) = Span(s \setminus \{ \vec{v}_j \})$$
+
+Let $S_1 = S \setminus \{ \vec{v}_j \}$.
+\end{enumerate}
+
+If $S_1$ is lin. ind. stop. Otherwise, go-to cases for $S_1$. Eventually, this process will stop, because $V$ is f.d.
+$$S_0 = S, S,_1, \dots$$
+where
+$$Span(S) = Span(S_1) = \dots$$
+and $\# S_i = m - i$.
+
+At each step, we remove one element. This process stops since $V$ is f.d. So we must have at least one non-zero vector in some spanning set $S_n$, the iteration we stop at. Thus we will have a lin. ind., spanning set $S_n$.
+
+## 1.19 Theorem
+
+__Thm__ Every f.d. $V \neq \{\vec{0}\}$ has a basis.
+
+__Pf__ From the definition, there exists a spanning set $S$ for $V$. Use Theorem 1.18 to form reduce $S$ to a basis.
+
+## 1.20 Theorem
+
+__Thm__ Let $V$ f.d. v.s. and $\mathcal{B} \subseteq V$. 
+$\mathcal{B}$ is a basis for $V \iff$ every vector in $V$ can be written as a lin. combo. of vectors in $\mathcal{B}$ in exactly one way.
+
+__Pf__ By Homework.
+
+## 1.21 Exchange \& Replacement Theorem
+
+__Thm__ $V$ an $F$-v.s. $U,W \subseteq V$. $U = \{\vec{u}_1,\dots,\vec{u}_m\}$ and $W = \{\vec{w}_1,\dots,\vec{w}_n\}$.
+If $U$ is lin. ind. and $V = Span(W)$, then $\#U \leq \#W$.
+
+__Pf__ Let $S_0 = \{ \vec{w}_1, \dots, \vec{w}_n \}$. Since $\vec{u}_1 \in Span(S_0)$, we have that 
+
+$$\{\vec{u}_1, \vec{w}_1, \dots, \vec{w}_n \} $$ 
+is lin. dep. and $\vec{u}_1 \neq \vec{0}$.
+
+By Theorem 1.15, we can remove a vector from $S_0$ and the span is unchanged.
+
+$$Span\{\vec{u}_1, \vec{w}_1, \dots, \vec{w}_n \} = Span\{\vec{u}_1, \vec{w}_1, \dots, \vec{w}_{n-1} \}$$
+after relabelling.
+
+Let $S_1 = \{\vec{u}_1, \vec{w}_1, \dots, \vec{w}_{n-1} \}$. We can repeat this process to gain a sequence were 
+$$S_j = \{ \vec{u}_1, \dots, \vec{u}_j, \vec{w}_1, \dots, \vec{w}_{n-j}\}$$.
+
+By Theorem 1.15,
+
+$$Span(S) = Span(S_0)= Span(S_1) = \dots = Span(S_{m-1}).$$
+
+Consider 
+$$S_{m-1} = \{ \vec{u}_1, \dots, \vec{u}_{m-1},\vec{w}_1, \dots, \vec{w}_{n-(m-1)}\}.$$
+
+By Theorem 1.15, we can throw out a vector that is a lin. combo of the previous vectors, but $U$ is lin. ind., so it must be an element of $W$ that we throw out. Thus $n-(m-1) \geq 1 \implies n \geq m$.
+
+## 1.22 Theorem
+
+__Thm__ $U,V$ are $F$-v.s. with $U$ a subspace of $V$. Then if $V$ is f.d., then $U$ is f.d.
+
+__Pf__ $V$ f.d. $\implies \exists W$ such that $W = \{ \vec{w}_1, \dots, \vec{w}_n \}$ and $V = Span(W)$.
+
+If $U = \{ \vec{0} \}$, then $U = Span\{\vec{0}\}$, and we're done. Otherwise,
+choose $\vec{u}_1 \in U, \vec{u}_1 \neq \vec{0}$. Let $S_1 = \{ \vec{u}_1 \}$.
+
+Cases 
+\begin{enumerate}
+	\item[i] If $U = Span(S_1)$, then done.
+	\item[ii] If $U \neq Span(S_1)$, choose $\vec{u}_2 \in U \setminus Span(S_1)$.
+\end{enumerate}
+
+Let $S_2 = \{ \vec{u}_1, \vec{u}_2 \}$. $S_2$ is lin. ind. by Theorem 1.15. Now, 
+go-to cases using $S_2$.
+
+Note $\# S_i = i$ and $i \leq m$ by Theorem 1.21. So this sequence must terminate.
+
+Thus $U$ is finite dimensional.
+
+## 1.23 Theorem
+
+__Thm__ $V$ a f.d. $F$-v.s. and $S \subseteq V$ a lin. ind. set. Then there exists a basis $\mathcal{B}$ for $V$ s/t $S \subset \mathcal{B}$ i.e. $S$ can be extended to a basis.
+
+__Pf__ By Homework.
+
+## 1.24 Theorem
+
+__Thm__ $V$ a f.d. $F$-v.s. If $\mathcal{B}_1,\mathcal{B}_2$ are bases for $V$, then $\#\mathcal{B}_1 = \# \mathcal{B}_2$. 
+
+__Pf__ Let $\mathcal{B}_1,\mathcal{B}_2$ be bases for $V$.  
+By Theorem 1.21 $\# \mathcal{B}_1 \leq \# \mathcal{B}_2$ and 
+$\# \mathcal{B}_2 \leq \# \mathcal{B}_1$ 
+so $\# \mathcal{B}_1 = \# \mathcal{B}_2$ .
+
+## 1.25 Def
+
+__Def__ the dimension of a f.d. $F$-v.s. is the number of elements in any basis for $V$. If $V = \{ \vec{0} \}$, then define $dimV = 0$.
+
+## 1.26 Theorem
+
+__Thm__ Let $V$ be a non-trivial f.d. $F$-v.s. with dimension $n$.
+
+\begin{enumerate}
+	\item If $U$ is a s.s. of $V$, then $dimU \leq dimV$.
+	\item If $S \subseteq V$ is a l.i. and $\# S =n$, then $S$ is a basis for $V$.
+	\item If $S \subseteq V$ and $V = Span(S)$, then $\# S = n \implies S$ is a basis.
+\end{enumerate}
+
+__Pf__ Homework.
+
+# 2 Linear Maps
+
+## 2.1 Definition
+
+__Def__ Let $V,W$ be $F$-v.s. An $F$-linear map from $V$ to $W$ is a map written 
+$T : V \rightarrow W$ such that:
+\begin{enumerate}
+\item $T(\vec{x} + \vec{y}) = T(\vec{x}) + T(\vec{y}), \forall \vec{x},\vec{y} \in V$
+\item $T(c\vec{x}) = cT(\vec{x}), \forall \vec{x} \in V, \forall c \in F$.
+\end{enumerate}
+(i) is additivity
+(ii) is homogeneity of degree 1
+
+## 2.2 Examples
+
+\begin{enumerate}
+\item Let $C^1(\mathbb{R}) = \{ f : \mathbb{R} \rightarrow \mathbb{R} \mid f^{\prime} \text{ exists and } f^\prime \in C^0(\mathbb{R})$. In general $C^k(\mathbb{R}) = \{ f : \mathbb{R} \rightarrow \mathbb{R} \mid f^{(k)} \text{ exists and } f^{\prime} \in C^{k-1}(\mathbb{R})\}$.
+This is linear:
+$$\frac{d}{dx} : C^k(\mathbb{R}) \rightarrow C^{k-1}(\mathbb{R})$$
+$$ f \mapsto \frac{df}{dx}$$
+\begin{enumerate}
+\item $$\frac{d}{dx}(f+g) = \frac{df}{dx} + \frac{dg}{dx}$$
+\item $$\frac{d}{dx}(cf) = c \frac{df}{dx} $$
+\end{enumerate}
+
+\item Consider:
+$$ \int : C^0([a,b]) \rightarrow \mathbb{R}$$
+$$ f \mapsto \int_a^b f(x) dx$$
+This is linear:
+\begin{enumerate}
+\item $$\int_a^b f(x) + g(x) dx = \int_a^b f(x)dx + \int_a^b g(x)dx$$ 
+\item $$\int_a^b cf(x)dx = c\int_a^b f(x)dx$$ 
+\end{enumerate}
+
+\item Consider 
+$$L: C^2(\mathbb{R}) \rightarrow C^0(\mathbb{R})$$
+$$f \mapsto f^{\prime\prime} + k^2f$$
+This is linear. (Check!)
+
+\item $$T : \mathbb{R}^3 \rightarrow \mathbb{R}^2$$
+$$\begin{bmatrix} a \\ b \\ c \end{bmatrix} \mapsto \begin{bmatrix} a+b-c \\ c \end{bmatrix}$$ 
+Check if linear:
+\begin{enumerate}
+\item \[
+T(
+\begin{bmatrix}
+a_1 + a_2 \\ b_1 + b_2 \\ c_1 + c_2	
+\end{bmatrix}
+)
+=
+\begin{bmatrix}
+a_1 +a_2 +b_1 + b_2 - c_1 -c_2 \\
+c_1 + c_2
+\end{bmatrix}
+.\]
+\[
+=
+\begin{bmatrix}
+a_1 + b_1 - c_1 \\
+c_1
+\end{bmatrix}
++
+\begin{bmatrix}
+a_2 + b_2 -c_2 \\
+c_2
+\end{bmatrix}
+=
+T(
+\begin{bmatrix}
+a_1 \\
+b_1\\
+c_1\\
+\end{bmatrix}
+)
++
+T(
+\begin{bmatrix}
+a_2 \\
+b_2\\
+c_2\\
+\end{bmatrix}
+)
+.\] 
+\item \[
+T(
+\begin{bmatrix}
+	sa \\ sb \\ sc
+\end{bmatrix})
+= 
+\begin{bmatrix}
+sa + sb - sc \\
+sc
+\end{bmatrix}
+=
+sT(
+\begin{bmatrix}
+a \\ b \\ c
+\end{bmatrix}
+)
+.\] 
+\end{enumerate}
+
+\item Now consider:
+$$T : \mathbb{R}^3 \mapsto \mathbb{R}^2$$
+$$\begin{bmatrix} a \\ b\\ c \end{bmatrix}\mapsto \begin{bmatrix}ab-c \\ c \end{bmatrix}$$
+Check if linear (Spoiler, it's not):
+\begin{enumerate}
+\item
+\item \[
+T(
+\begin{bmatrix}
+sa \\ sb \\ sc
+	
+\end{bmatrix}
+)
+=
+\begin{bmatrix}
+s^2ab - sc \\
+sc
+\end{bmatrix}
+=
+s
+\begin{bmatrix}
+sab - c \\
+c
+\end{bmatrix}
+.\]  
+\end{enumerate}
+
+\item Let
+$$ L : \mathbb{C}[x] \rightarrow \mathbb{C}[x] $$
+$$ f \mapsto x\cdot f$$
+Check if linear:
+\begin{enumerate}
+\item Let $f,g \in \mathbb{C}[x]$ with
+$$f = \sum_{i=0}^n a_ix_i \text{ and } g=\sum_{i=0}^m b_ix_i$$
+WLOG, let $m \leq n$ and define $b_i = 0$ for $m < i \leq n$.
+\[
+L(f+g) = L(\sum_{i=0}^n (a_i + b_i)x_i) = x \sum_{i=0}^n (a_i + b_i) x^i = \sum_{i=0}^n (a_i + b_i) x^{i+1}
+.\]
+\[
+= \sum_{i=0}^n a_i x^{i+1} + \sum_{i=0}^n b_i x^{i+1} = \sum_{i=0}^n a_i x^{i+1} + \sum_{i=0}^m b_i x^{i+1}
+.\] 
+\item
+\end{enumerate}
+\end{enumerate}
+
+## 2.3 Theorem 
+
+__Thm__ $T : V \rightarrow W$ linear. Then $T(\vec{0}) = \vec{0}$.
+
+__Pf__ $T(\vec{0}) = T(\vec{0} + \vec{0}) = T(\vec{0}) + T(\vec{0})$.
+$\implies \vec{0} =  T(\vec{0})$.
+
+## 2.4 Definition
+
+__Def__ $T : V \rightarrow W$ linear. Define
+
+$$\Ker(T) = \{ \vec{v} \in V \mid T(\vec{v}) = \vec{0} \},$$
+called the kernal (null space) of $T$.
+
+## 2.5 Theorem
+
+__Thm__ $T : V \rightarrow W$ linear. Then $Ker(T)$ is a s.s. of $V$.
+
+__Pf__ 
+\begin{enumerate}
+\item Theorem 2.3, $T(\vec{0}) = \vec{0} \implies \vec{0} \in Ker(T)$.
+
+\item Let $\vec{x}, \vec{y} \in Ker(T)$. Want to show that $\vec{x} + \vec{y} \in Ker(T)$.
+By definition of $Ker(T)$
+$$ T(\vec{x}) = 0$$
+$$ T(\vec{y}) = 0.$$
+Now 
+$$ T(\vec{x} + \vec{y}) = T(\vec{x}) + T(\vec{y}) = \vec{0} + \vec{0} = \vec{0}.$$
+$$\implies \vec{x} + \vec{y} \in Ker(T).$$
+
+\item Let $\vec{x}\in Ker(T)$, $c \in F$.
+
+$$ T(c \vec{x}) = c T(\vec{x}) = c \cdot \vec{0} = \vec{0}$$
+$$\implies c\vec{x} \in Ker(T).$$
+
+\end{enumerate}
+
+## 2.6 Definition
+
+__Def__ a function $f : X \rightarrow Y$ is called injective if 
+$$ f(x) = f(y) \implies x=y, \forall x,y \in X.$$
+
+## 2.7 Theorem
+
+__Thm__ $T : V \rightarrow W$ linear. $T$ is injective $\iff Ker(T) = \{ \vec{0} \}$.
+
+
