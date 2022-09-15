@@ -117,3 +117,56 @@ __Def__ Formally, a NFA $N$ is a set $\{Q,\Sigma, \delta, q_0, F \}$ where
 - $\delta : Q \times \Sigma \rightarrow \mathcal{P}(Q)$.
 - $q_0$ is the initial state.
 - $F$ is a set of final states $\{f_1, \dots, f_m \}$.
+
+*9-13-22*
+
+__Def__ The **extended transition function** is $\hat{\delta}$. Define by induction on the length of the string $w$ for some state $q$.
+
+$$\hat{\delta}(q, \epsilon) = \{ q \}$$
+
+Consider non-empty string $w$. If it is not empty then it has a last symbol $w = xa$ where $a$ is the last symbol. Let $\hat{\delta}(q, x) = \{ p_i, \dots, p_k \}$ where $p_i$ is a state. Then 
+
+$$\hat{\delta}(q,w) = \bigcup_{i=0}^k \delta(p_i, a) = \{r_1, \dots, r_m \}.$$
+
+__Def__ A NFA accepts an input string $w$ if and only if $\hat{\delta}(q_0, w) \cap F \neq \emptyset$.
+
+__Def__ Let $A$ be an NFA. Then the language of $A$ is
+
+$$L(A) = \{ w \in \Sigma^* \mid \hat{\delta}(q_0, w) \cap F \neq \emptyset \}.$$
+
+For any language $L$, if there is a DFA that accepts $L$, then there is an NFA
+that accepts $L$. Suppose NFA $A$ accepts $L$. Can we build a DFA that also 
+accepts $L$. The answer is yes.
+
+Assuming that, a language $L$ is *regular* if there exists a DFA or an NFA that
+accepts it. It just so happens that NFA are often easier to write, so this is helpful.
+
+## 1.5 Equivalence of NFA and DFA
+
+*9-15-22*
+
+Would like to show $L(N) = L(M)$. Need to 
+
+1. a construction from $M$ for $N$
+2. argue $L(N)=L(M)$.
+
+If I want to simulate $N$ like a DFA, what do I track?
+Enough to remember where all $N$ could be when started from its
+initial state and given string $w$.
+
+__Pf__
+
+
+1. Formally, given an NFA $N = \{Q_N, \Sigma_N, \delta_N, q_{0N}, F_N \}$ we want to build DFA $M = \{Q_M, \Sigma_M, \delta_M, q_{0M}, F_M \}$.
+
+- $Q_M = \mathcal{P}(Q_N)$.
+- $\Sigma = \Sigma_N = \Sigma_M$
+- $q_{0M} = \{q_{0N}\}$.
+- $F_M = \{ S \in Q_M \mid S \cap F_N \neq \emptyset \}$.
+- For state $S \in Q_M, a \in \Sigma,$
+
+$$\delta_M(S, a) = \bigcup_{p \in S} \delta_N(p,a)$$
+
+2. Want to show $L(N) = L(M)$. Going to show $L(N) \subseteq L(M)$ and $L(M)\subseteq L(N)$. To prove these, prove the following by induction on the length of string $w$.
+(a) If $N$ can go from state $q_0$ to state $p$ on reading some string $w$, then $M$ goes from $\{q_{0N} \}$ to a state $S$ where $p \in S$. 
+(b) If $M$ does the following, $\{q_0 \} ---> S$ then the NFA $N$ $q_0 ---> p$ $\forall p \in S$.

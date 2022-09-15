@@ -503,7 +503,7 @@ $\implies \vec{0} =  T(\vec{0})$.
 
 __Def__ $T : V \rightarrow W$ linear. Define
 
-$$\Ker(T) = \{ \vec{v} \in V \mid T(\vec{v}) = \vec{0} \},$$
+$$Ker(T) = \{ \vec{v} \in V \mid T(\vec{v}) = \vec{0} \},$$
 called the kernal (null space) of $T$.
 
 ## 2.5 Theorem
@@ -535,7 +535,327 @@ __Def__ a function $f : X \rightarrow Y$ is called injective if
 $$ f(x) = f(y) \implies x=y, \forall x,y \in X.$$
 
 ## 2.7 Theorem
+*9-8-22*
 
 __Thm__ $T : V \rightarrow W$ linear. $T$ is injective $\iff Ker(T) = \{ \vec{0} \}$.
 
+__Pf__ Assume $T$ is injective. Want to show that 
+$$Ker(T) = \{ \vec{0} \}.$$
+Let $\vec{u} \in Ker(T)$. Then $T(\vec{u}) = \vec{0}$ and $T(\vec{0}) = \vec{0}$ by 2.3.
+Thus $T(\vec{u}) = T(\vec{0})$ and $T$ injective gives $\vec{u} = \vec{0}$. Also, by 2.5, $Ker(T)$ is a s.s. so non-empty.
 
+Now assume $Ker(T) = \{0 \}.$ WTS that $T$ is injective.
+Let $\vec{x},\vec{y} \in V$ be such that 
+$$T(\vec{x}) = T(\vec{y})$$
+$$T(\vec{x}) - T(\vec{y}) = \vec{0}$$
+Since the kernal of $T$ is trivial.
+$$\vec{x} - \vec{y} = \vec{0}$$
+$$\implies \vec{x} = \vec{y}$$
+
+## 2.8 Definition
+
+__Def__ Let $f X : \rightarrow Y$ be a map, then the range of $f$ is 
+$$range(f) =\{f(x) \mid x \in X \}$$
+
+## 2.9 Theorem 
+
+__Thm__ $T : V \rightarrow W$ $F$-linear, then range$(T)$ is a subspace of $W$.
+
+__Pf__ By Homework
+
+## 2.10 Definition 
+
+__Def__ $f: X \rightarrow Y$ is called surjective if 
+$$range(f) = Y.$$
+
+## 2.11 Definition 
+
+__Def__ $T : V \rightarrow W$ is called an $F$-isomorphism if: 
+\begin{enumerate}
+\item $T$ is $F$-linear.
+\item $T$ is injective.
+\item $T$ is surjective.
+\end{enumerate}
+
+We say that $V$ and $W$ are $F$-isomorphic written TODO if there exists an 
+$F$-isomorphism between them.
+
+## 2.12 DEF
+
+__Def__ $T : V \rightarrow W$ F-linear. Define 
+$$rank(T) = dim(range(T)),$$
+and define 
+$$nullity(T) = dim(Ker(T)).$$
+
+## 2.13 Theorem (Rank-Nullity)
+
+__Thm__ $T: V \rightarrow W$ F-linear and $V$ f.d. Then 
+$$dimV = rank(T) + nullity(T).$$
+
+__Pf__ Know that $Ker(T)$ is a s.s. of $V$. So, $Ker(T)$ is finite dimensional by Theorem 1.22.
+So there exists $U= \{\vec{u}_1, \dots, \vec{u}_m \}$ where $U$ is a basis for $Ker(T)$.
+
+So extend $U$ to be a basis for $V$ and call it
+$$
+\mathcal(B)_V = \{ \vec{u}_1, \dots, \vec{u}_m, \vec{v}_1, \dots, \vec{v}_n \}.
+.$$
+
+Note $dimV = m +n$ and $nullityT = m.$
+Claim: $rank(T) = n$. Idea, show that $S = \{ T(\vec{v}_1), \dots, T(\vec{v}_n) \}$ is a basis for range($T$).
+Let $T(\vec{v}) \in range(T)$ be an arbitrary vector with $\vec{v}\in V$. Since, $\vec{v} \in V,$
+$$ \vec{v} = a_1\vec{u}_1 + \dots + a_m \vec{u}_m + b_1\vec{v}_1 + \dots +  b_n\vec{v}_n$$
+Then:
+$$T(\vec{v}) = a_1T(\vec{u}_1) + \dots + a_m T(\vec{u}_m) + b_1T(\vec{v}_1) + \dots +  b_nT(\vec{v}_n)$$
+$$ = b_1 T(\vec{v}_1) + \dots b_n T(\vec{v}_n).$$
+So $S$ is a spanning set for $range(T).$ To show linear independence, let 
+
+$$ c_1T(\vec{v}_1) + \dots + c_nT(\vec{v}_n) = \vec{0}.$$
+$$T(c_1\vec{v}_1 + \dots + c\vec{v}_n) = \vec{0}$$
+$$\implies T(c_1\vec{v}_1 + \dots + c\vec{v}_n)  \in Ker(T)$$
+$$\implies c_1\vec{v}_1 + \dots + c\vec{v}_n = d_1\vec{u}_1 + \dots + d_n\vec{u}_n$$
+Thus 
+$$c_1\vec{v}_1 + \dots + c\vec{v}_n - d_1\vec{u}_1 + \dots + d_n\vec{u}_n = \vec{0}$$
+$$ \implies d_1 = \dots = d_m = c_1 = \dots c_n = 0$$
+Since $\mathcal{B}_V$ is a basis.
+This implies that $dim(range(T)) = n = rank(T)$. So
+
+$$dim V = m + n.$$
+$$rank(T) = n.$$
+$$nulltiy(T) = m.$$
+
+## 2.14 Theorem
+
+__Thm__ $V$ an $F$-vs with basis $\{ \vec{v}_1, \dots, \vec{v}_n \}$ and $W$ 
+an F-v.s. with basis $\{ \vec{w}_1, \dots, \vec{w}_n \}$.
+There exists a unique $F$-linear map $T : V \rightarrow W$ such that 
+$$T(\vec{v}_j) = \vec{w}_j, \forall j \text{ with } 1 \leq j \leq n.$$ 
+
+__Pf__ First, existence of map $T$.
+
+Let $\vec{v} \in V$ be arbitrary. Then $\vec{v} = c_1\vec{v}_1 + \dots + c_n\vec{v}_n$ for some $c_1,\dots, c_n \in F.$
+Define $T(\vec{v})$ by 
+
+$$T(\vec{v}) = c_1\vec{w}_1 + \dots + c_n \vec{w}_n.$$
+
+Since $\{\vec{w}_1, \dots, \vec{w}_n \}$ is a basis. 
+
+$$c_1\vec{w}_1 + \dots + c_n\vec{w}_n$$
+
+describes a unique vector. So $T$ is well-defined.
+
+If $c_j= 1$ and $c_i=0 \forall i$ with $1 \leq i \leq n$ and $i \neq j$
+then 
+
+$$T(c_1\vec{v}_1 + \dots +c_n \vec{v}_n) = T(\vec{v}_j) = \vec{w}_j$$
+
+So our map works how we want it to.
+
+LINEARITY AND UNIQUENESS BY HOMEWORK
+
+## 2.15 theorem
+
+__Thm__ $V,W$ f.d. $F$-v.s.
+
+$$V \cong W \iff dim(V) = dim(W)$$
+
+__Pf__ Assume $V \cong W$ thus $\exists T : V \rightarrow W$ F-isom.
+Recall $dimV = rankT + nullityT$. 
+
+$T$ isomorphic $\implies$ T inj $\implies Ker(T) = \{\vec{0} \} \implies dim(Ker(T)) = 0 \implies nullity(T) = 0.$
+
+So $dimV = rank(T)$. 
+
+By $T$ is surjective $\implies range(T) = W \implies dim(range(T)) = dimW$.
+
+So dim$V=$dim$W$.
+
+Now, assume that dim$V=$dim$W$. 
+Let $V$ have a basis $\{\vec{v}_1, \dots, \vec{v}_n \}$ and $W$ basis $\{ \vec{w}_1, \dots, \vec{w}_n \}$.
+By 2.14, there exists a unique $T : V \rightarrow W$ such that $T(\vec{v}_j = \vec{w}_j)$
+for $1\leq j \leq n$.
+
+Need to show $T$ is $F$-isom. $T$ is $F$-linear by 2.14.
+\begin{enumerate}
+\item[Surjectivity] Let $\vec{w} \in W$ be written as:
+$$\vec{w} = c_1\vec{w}_1 + \dots + c_n\vec{w}_n.$$
+Then 
+$$T(c_1\vec{v}_1 + \dots + c_n\vec{v}_n) = \vec{w}.$$
+\item[Injectivity] Let $x \in V$ and assume $T(\vec{x})= \vec{0}$. 
+$$\vec{x} = a_1\vec{v}_1 + \dots + a_n\vec{v}_n$$
+and
+$$T(\vec{x}) = a_1\vec{w}_1 + \dots + a_n\vec{w}_n = \vec{0}$$
+Since $\{\vec{w}_1, \dots,\vec{w}_n \}$ we must have $a_1 + \dots = a_n = 0$, so
+$\vec{x} = \vec{0}$, thus $T$ is injective by Theorem 2.6,
+and $T$ is an $F$-isomorphism as desired.
+\end{enumerate}
+
+## 2.16 Corollary
+
+$V$ a f.d. $F$-v.s. with dim$V$=n. Then $V \cong F^n$.
+
+__Pf__ $F^n$ is $n$-dimensional. Use previous Theorem.
+
+## 2.17 Definition
+
+__Def__ Define a map $I : V \rightarrow V$ by $\vec{v} \mapsto \vec{v}$, called the identity map on $V$.
+
+## 2.18 Defintion
+
+__Def__ Let $T : V \rightarrow W$ be linear. We say $T$ is invertible if 
+$$\exists S : W \rightarrow V \text{ linear such that }$$
+\begin{enumerate}
+\item[(i)] $$S \circ T = I_V$$
+\item[(ii)]$$ T \circ S = I_W$$
+
+We call $S$ an inverse of $T$.
+	
+\end{enumerate}
+
+## 2.19 Theorem
+
+__Thm__ If $T: V \rightarrow W$ linear has an inverse, then that inverse is unique.
+
+__Pf__ Let $S_1$ and $S_2$ be inverses of $T$, some invertible linear map. We
+have 
+
+$$ S_1 \circ T = S_2 \circ T = I_V$$
+$$T \circ S_1 = T \circ S_2 = I_W$$
+$$S_1 = S_1 \circ I_W = S_1 \circ (T \circ S_2) = (S_1 \circ T) \circ S_2 = 
+I_V \circ S_2 = S_2.$$
+
+## 2.20 Definition
+
+__Def__ If $T$ has an inverse, denote it $T^{-1}$.
+
+## 2.21 Theorem
+
+__Thm__ $T : V \rightarrow W$ is invertible if and only if $T$ is an $F$-isomorphism.
+
+__Pf__ Assume $T$ is invertible. Then there exists a unique map $T^{-1}$ such that
+$$T^{-1} \circ T = I_V.$$
+
+\begin{enumerate}
+\item[i] $T$ is linear by assumption.
+
+\item[ii] Let $T(\vec{x}) = T(\vec{y})$. then
+$$T^{-1} \circ T (\vec{x}) = T^{-1} \circ T (\vec{y})$$
+$$I(\vec{x}) = I(\vec{y})$$
+$$\vec{x} = \vec{y}$$
+
+\item[iii] Let $\vec{w} \in W$ be arbitrary, then $T \circ T^{-1}(\vec{w}) = \vec{w}$.
+	
+\end{enumerate}
+
+So $T$ is an $F$-isomorphism.
+
+Now, let $T$ be an $F$-isomorphism. We must construct $S : W \rightarrow V$ 
+linear such that
+
+$$T \circ S = I_W,$$
+$$ S \circ T = I_V.$$
+
+Since $T$ is both surjective and injective, we know that $\forall \vec{w} \in W,
+\exists \vec{v} \in V$ such that $T(\vec{v}) = \vec{w},$
+and $T(\vec{x}) = T(\vec{y}) \implies \vec{x} = \vec{y}$. So define
+$$S : W \rightarrow V$$
+$$\vec{w} \rightarrow \vec{v}.$$
+where $T(\vec{v}) = \vec{w}$.
+Every $\vec{w}$ has such a $\vec{v}$ by surjectivity of $T$ and that $\vec{v}$
+is unique by injectivity of $T$.
+
+Now compute:
+$$T \circ S(\vec{w}) = T(\vec{v}) = \vec{w} \implies T \circ S = I_W$$
+$$S \circ T(\vec{v}) = S (\vec{w}) = \vec{v} = I_V$$
+
+The linearity of $S$ follows from the linearity of $T$. 
+\begin{enumerate}
+
+	\item[(+)]
+		If $S(\vec{w}_1) = \vec{v}_1, S(\vec{w}_2) = \vec{w}_2,$
+		$$S(\vec{w}_1 + \vec{w}_2) = S(T(\vec{v}_1) + \vec{v}_2) = \vec{v}_1 + \vec{v}_2 
+		= S(\vec{w}_1) + S(\vec{w}_2)$$
+	\item[($\cdot$)]
+\end{enumerate}
+
+Similarly for homogeneity.
+
+# 3 Matrices
+
+## 3.1 Definition
+
+__Def__ Let $m,n \in \mathbb{N}, F$ a field. An $m \times n$ matrix over $F$ is
+a grid with $m$ rows and $n$ columns consisting of elements of $F$.
+$$
+\begin{bmatrix}
+a_{11} & a_{12} & \dots & a_{1n}\\
+a_{21} & a_{22} & \dots & a_{2n}\\
+\vdots & \vdots & \ddots & \vdots \\
+a_{m_1} & a_{m_2} & \ldots & a_{mn} \\
+\end{bmatrix}
+$$
+
+We denote the space of all such matrices as $M_{m\times n}(F)$
+
+## 3.2 
+
+__Def__ $V$ an $F$-v.s. with basis $\mathcal{B} = \{ \vec{v}_1, \ldots , \vec{v}_n \}$
+and $F^n$ with basis $\{\vec{e}_1, \dots, \vec{e}_n \},$ the standard basis.
+
+Then $V \cong F^n$ by Corollary 2.16 and by Theorem 2.14, $\exists T : V \rightarrow F^n$
+an $F$-isom with $T(\vec{v}_i) = \vec{e}_i$ and 
+
+$$T(c_1\vec{v}_1 + \dots + c_n\vec{v}_n) = c_1\vec{e}_1  + \dots + c_n\vec{e}_n = 
+\begin{bmatrix}
+c_1 \\
+\vdots \\
+c_n
+\end{bmatrix}
+$$
+Define $[ c_1\vec{v}_1 + \dots + c_n\vec{v}_n ]_{\mathcal{B}} = \begin{bmatrix}
+c_1 \\
+\vdots \\
+c_n
+\end{bmatrix} \in F^n,$
+
+called the coordinate vector of $c_1\vec{v}_1 + \dots + c_n\vec{v}_n$ with 
+respect o the basis $\mathcal{B}$.
+
+
+## 3.3 Examples
+
+\item $P_2(\mathbb{R}), \mathcal{B} = \{1,x,x^2 \}$.
+$$[x^2 + x +1 ]_{\mathcal{B}} = 
+\begin{bmatrix}
+1 \\
+1\\
+1\\
+\end{bmatrix}$$	
+
+## 3.4 Definition
+
+Let $T : V \rightarrow W$ be linear with $\mathcal{B} = \{ \vec{v}_1, \dots, \vec{v}_n \}$
+and $\mathcal{\vec{w}, \dots, \vec{w}_m}$ bases for $V$ and $W$ respectively.
+Then for $\vec{v} \in V,$
+
+$$T(\vec{v}) = T(C_1\vec{v}_1 + \dots +c_n \vec{v}_n)$$
+$$=c_1T(\vec{v}_1) + \dots + c_n T(\vec{v}_n)$$
+
+where $T(\vec{v}_i) \in W$. So 
+
+$$[T(\vec{v}_i)]_{\mathcal{C}} = \begin{bmatrix}
+a_1i \\
+\vdots \\
+a_mi \\
+\end{bmatrix}$$
+
+So:
+
+$$[T(\vec{v})]_{\mathcal{C}} = c_1 \begin{bmatrix} a_{11} \\ \vdots \\ am_1 \end{bmatrix} + \dots + c_n \begin{bmatrix} a_{1n} \\ \vdots \\ a{mn} \\ \end{bmatrix}$$
+
+Define $A_{\mathcal{B}}^{\mathcal{C}} = \begin{bmatrix}
+a_{11} & \dots & a_{1n} \\
+\vdots & \ddots & \vdots \\
+a_{m_1} & \dots & a_{mn}
+\end{bmatrix} \in M_{m\times n }(F),$
+
+the matrix of $T$ with respect to the bases $\mathcal{B}$ and $\mathcal{C}$.
