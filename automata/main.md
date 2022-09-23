@@ -19,7 +19,7 @@ And since there are less decision problems than problems in general, we have
 
 $$|Programs| << |Problems|.$$
 
-# 1 Formal Languages
+# Introduction to Regular Languages
 
 ## 1.1 Motivation
 *8-30-22*
@@ -169,4 +169,100 @@ $$\delta_M(S, a) = \bigcup_{p \in S} \delta_N(p,a)$$
 
 2. Want to show $L(N) = L(M)$. Going to show $L(N) \subseteq L(M)$ and $L(M)\subseteq L(N)$. To prove these, prove the following by induction on the length of string $w$.
 (a) If $N$ can go from state $q_0$ to state $p$ on reading some string $w$, then $M$ goes from $\{q_{0N} \}$ to a state $S$ where $p \in S$. 
-(b) If $M$ does the following, $\{q_0 \} ---> S$ then the NFA $N$ $q_0 ---> p$ $\forall p \in S$.
+(b) If $M$ does the following, $\{q_0 \} \mapsto S$ then the NFA $N$ $q_0 \mapsto p$ $\forall p \in S$.
+
+## 1.6 Automata with transitions on $\epsilon$
+*9-20-22*
+
+Why care about $\epsilon$-NFA?
+Suppose $L_1,L_2$ are regular. Then there exists DFA $M_1,M_2$ such that $L(M_1) = L_1$ and $L(M_2) = L_2$.
+...
+Basically, we can use $\epsilon$-NFA to prove closure properties of regular languages.
+
+## 1.7 Equivalence of $\epsilon$-NFA and NFA
+
+Want to build an NFA N' such that for an $\epsilon$-NFA $N$
+
+$$L(N)=L(N^\prime)$$
+
+If $N$ can go from state $p$ to $q$ by reading symbol $a$, then so should $N^\prime$
+
+More generally, $N$ can go from state $p$ to state $q$ on symbol $a$ as be just 
+traversing epsilon transitions. 
+
+\begin{center}
+	
+E-CLOSURE(p) = $\{ q \in Q \mid q$ can be reach via just epsilon transitions $\}$
+\end{center}
+
+For a state $S$, ECLOSE$(S)$ is a set of states, including S, that can be reached
+from $S$ only using arcs (transitions) labeled $epsilon$.
+
+- $N^\prime$ has the same set of final states as $N$.
+- $N^\prime$ has the same set of states as $N$.
+- $N^\prime$ has the same state as $N$.
+
+To construct $N^\prime$:
+
+- Compute ECLOSE$(s), \forall s \in Q_N$.
+- For a state $p$, to determine transitions on symbol $a$:
+
+1. Let $R = \bigcup_{e \in ECLOSE(p)} \delta(e, a)$. (The set of states reachable
+from a state in ECLOSE$(p)$ by an arc labeled $a$).
+2. $R^\prime = \bigcup_{r \in R} ECLOSE(r)$.
+3. For each $q \in R^\prime$, add a transition in $N^\prime$ from state $p$ on
+symbol $a$.
+
+TODO Example
+
+
+This construction works.
+
+To show language $L$ is regular we can now do one of the following:
+1. Show DFA
+2. Show NFA
+3. Show $\epsilon$-NFA
+
+# 2 Properties of Regular Languages
+
+## 2.1 Closure Properties of Regular Languages
+
+Let $L_1, L_2$ be languages over some alphabet $\Sigma$.
+
+Some operations:
+
+1. Complement	
+$$\bar{L}_1 = \{ w \in \Sigma^* \mid w \notin L_1 \}$$
+
+2. Union
+$$L_1 \cup L_2 = \{ w \in \Sigma^* \mid (w \in L_1) \vee (w \in L_2)$$
+
+3. Intersection
+$$L_1 \cap L_2 = \{ w \in \Sigma^* \mid (w \in L_1) \land (w \in L_2)$$
+
+4. Concatenation
+$$L_1L_2 \text{ or } L_1\cdot L_2 = \{wx \mid w \in L_1, x \in L_2 \}$$
+
+*Ex.* Suppose $L_1 = \{0,01,11,101\}, L_2 = \{0,10\}$. Then
+$$L_1L_2 = \{00,010,0110,110,1110,1010,10110\}.$$
+
+5. Kleene-Closure or Kleene-Star
+
+Strings in $L_1^*$ are precisely those gotten as follows:
+1. Take as many copies (including zero copies) of as many strings in $L_1$ as 
+you want and concatinate in any way can.
+
+$$L_1^* = \{ w_1w_2\ldots w_k \mid k \geq 0 \land w_i \in L_1 \}$$
+
+Notice that $\epsilon \in L_1^*$, always.
+
+*Ex.* $L_1 = \{0,10 \}.$
+$$L_1^* = \{ \epsilon, 0, 00, 10, 000, 010, 100, \dots \}$$
+
+Suppose $L_2 = \{00,01,10,11 \}$
+$$L_2^* = \{ w \in \Sigma^* \mid |w| = 2n, n\in Z_{\geq 0} \}$$
+
+2. Another way to think of $L^*$:
+$$\{\epsilon\} \cup L \cup LL \cup LLL \cup \dots$$
+
+*Preview: regular languages are closed under all of these operations.*
