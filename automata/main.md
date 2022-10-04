@@ -19,7 +19,7 @@ And since there are less decision problems than problems in general, we have
 
 $$|Programs| << |Problems|.$$
 
-# Introduction to Regular Languages
+# 1 Formal Languages of DFA's and NFA's 
 
 ## 1.1 Motivation
 *8-30-22*
@@ -171,6 +171,8 @@ $$\delta_M(S, a) = \bigcup_{p \in S} \delta_N(p,a)$$
 (a) If $N$ can go from state $q_0$ to state $p$ on reading some string $w$, then $M$ goes from $\{q_{0N} \}$ to a state $S$ where $p \in S$. 
 (b) If $M$ does the following, $\{q_0 \} \mapsto S$ then the NFA $N$ $q_0 \mapsto p$ $\forall p \in S$.
 
+TODO Example
+
 ## 1.6 Automata with transitions on $\epsilon$
 *9-20-22*
 
@@ -181,7 +183,7 @@ Basically, we can use $\epsilon$-NFA to prove closure properties of regular lang
 
 ## 1.7 Equivalence of $\epsilon$-NFA and NFA
 
-Want to build an NFA N' such that for an $\epsilon$-NFA $N$
+Want to build an NFA $N^\prime$ such that for an $\epsilon$-NFA $N$
 
 $$L(N)=L(N^\prime)$$
 
@@ -223,7 +225,7 @@ To show language $L$ is regular we can now do one of the following:
 2. Show NFA
 3. Show $\epsilon$-NFA
 
-# 2 Properties of Regular Languages
+# 2 Regular Expressions
 
 ## 2.1 Closure Properties of Regular Languages
 
@@ -266,3 +268,36 @@ $$L_2^* = \{ w \in \Sigma^* \mid |w| = 2n, n\in Z_{\geq 0} \}$$
 $$\{\epsilon\} \cup L \cup LL \cup LLL \cup \dots$$
 
 *Preview: regular languages are closed under all of these operations.*
+
+__Pf__
+
+Let $M$ be $\{Q, \Sigma, \delta, q_0, F\}$ be a DFA such that $L(M) = L$.
+For each of these closures, we will construct DFA $M^\prime$.
+
+1. $\overline{L(M)}$ is accepted by the same machine. Just let $F^\prime = Q \setminus F$.
+
+2. $L(M_1) \cap L(M_2)$ 
+$$\{Q_1 \times Q_2, \Sigma, \delta^\prime, (q_{01}, q_{02}), F^\prime\}$$
+- $\delta^\prime((q_1, q_2), a) = (\delta_1(q_1,a), \delta_2(q_2,a))$
+- $F^\prime = \{ (q_1,q_2) \in Q_1 \times Q_2 \mid q_1 \in F_1 \land q_2 \in F_2 \}$
+
+3. $L(M_1) \cup L(M_2)$ is the same construction except
+- $F^\prime = \{ (q_1,q_2) \in Q_1 \times Q_2 \mid q_1 \in F \vee q_2 \in F_2 \}$
+
+4. See schematic for construction.
+
+5. See schematic for construction.
+
+Also we can prove union is closed a different way.
+$$L_1 \cup L_2 = \overline{\overline{L_1 \cup L_2}}
+= \overline{\overline{L_1} \cap \overline{L_2}}$$
+As complement and intersection perserve regular, regular languages are closed under union.
+
+Here is another example of this process. Is set-minus closed?
+$$L_1 - L_2 = L_1 \cap \overline{L_2}, \text{ so set minus is closed.}$$
+
+
+## 2.2 Regex
+A regular expression is a finite expression for a possibly infinite language. 
+For which languages can we express them in regular expressions? Regular languages.
+

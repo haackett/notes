@@ -85,7 +85,7 @@ here are the potential factorizations of $A$ in order of "niceness":
 
 ## 1.1 Note
 
-## 1.2 Definition
+## 1.2 Definition: Vector Space
 
 __Def__ A vector space over a field $F$ is a set $V$ with an addition operation
 and a scalar multiplication operation such that $\forall \vec{x},\vec{y} \in V,
@@ -120,7 +120,7 @@ __Thm__ Let $V$ be a $F$-v.s.
 
 __Pf__ By homework.
 
-## 1.5 Definition
+## 1.5 Definition: Vector Subspace
 
 __Def__ $V$ a $F$-v.s. If a subset of $V, U,$ is an $F$-v.s. with respect to the same operations as $V$, then $U$ is a vector subspace. 
 
@@ -141,7 +141,7 @@ __Pf__ By homework.
 3. $\mathcal{C}^o(\mathbb{R}) = \left\{ f: \mathbb{R} \rightarrow \mathbb{R}, \text{ $f$ continuous} \right\}$.
 4. For any $F$-v.s. $V$, ${\vec{0}}$ and $V$ are subspaces.
 
-## 1.8 Definition
+## 1.8 Definition: Span
 *8/30/22*
 
 __Def__ Let $S = {\vec{v}_1, ..., \vec{v}_n}$ and V an $F$-v.s:
@@ -183,13 +183,13 @@ $S$ is a subset of $W$, then $Span(S) \subseteq W$.
 
 __Pf__ By HW.
 
-## 1.11 Definition
+## 1.11 Definition: Finite Dimensional & Infinite Dimensional
 
 __Def__ $V$ an $F$-v.s. If $V$ is spanned by a finite set, then $V$ is a 
 finite-dimensional vector space. Otherwise, $V$ is an infinite dimensional 
 vector space.
 
-## 1.12 Definition
+## 1.12 Definition: Linearly Independent & Linearly Dependent
 
 __Def__ An ordered set $S=\{\vec{v}_1,...,\vec{v}_n \}$ is called linearly 
 independent if whenever
@@ -327,7 +327,7 @@ By Theorem 1.21 $\# \mathcal{B}_1 \leq \# \mathcal{B}_2$ and
 $\# \mathcal{B}_2 \leq \# \mathcal{B}_1$ 
 so $\# \mathcal{B}_1 = \# \mathcal{B}_2$ .
 
-## 1.25 Def
+## 1.25 Definition: Dimension of a Vector Space
 
 __Def__ the dimension of a f.d. $F$-v.s. is the number of elements in any basis for $V$. If $V = \{ \vec{0} \}$, then define $dimV = 0$.
 
@@ -345,7 +345,7 @@ __Pf__ Homework.
 
 # 2 Linear Maps
 
-## 2.1 Definition
+## 2.1 Definition: $F$-Linear Map
 
 __Def__ Let $V,W$ be $F$-v.s. An $F$-linear map from $V$ to $W$ is a map written 
 $T : V \rightarrow W$ such that:
@@ -497,12 +497,12 @@ __Thm__ $T : V \rightarrow W$ linear. Then $T(\vec{0}) = \vec{0}$.
 __Pf__ $T(\vec{0}) = T(\vec{0} + \vec{0}) = T(\vec{0}) + T(\vec{0})$.
 $\implies \vec{0} =  T(\vec{0})$.
 
-## 2.4 Definition
+## 2.4 Definition: Kernel
 
 __Def__ $T : V \rightarrow W$ linear. Define
 
 $$Ker(T) = \{ \vec{v} \in V \mid T(\vec{v}) = \vec{0} \},$$
-called the kernal (null space) of $T$.
+called the kernel (null space) of $T$.
 
 ## 2.5 Theorem
 
@@ -527,7 +527,7 @@ $$\implies c\vec{x} \in Ker(T).$$
 
 \end{enumerate}
 
-## 2.6 Definition
+## 2.6 Definition: Injectivity
 
 __Def__ a function $f : X \rightarrow Y$ is called injective if 
 $$ f(x) = f(y) \implies x=y, \forall x,y \in X.$$
@@ -550,7 +550,7 @@ Since the kernal of $T$ is trivial.
 $$\vec{x} - \vec{y} = \vec{0}$$
 $$\implies \vec{x} = \vec{y}$$
 
-## 2.8 Definition: Injectivity
+## 2.8 Definition: Range (or Image) of a map 
 
 __Def__ Let $f : X \rightarrow Y$ be a map, then the range of $f$ is 
 $$range(f) =\{f(x) \mid x \in X \}$$
@@ -693,11 +693,11 @@ $V$ a f.d. $F$-v.s. with dim$V$=n. Then $V \cong F^n$.
 
 __Pf__ $F^n$ is $n$-dimensional. Use previous Theorem.
 
-## 2.17 Definition
+## 2.17 Definition: Identity Map
 
 __Def__ Define a map $I : V \rightarrow V$ by $\vec{v} \mapsto \vec{v}$, called the identity map on $V$.
 
-## 2.18 Defintion
+## 2.18 Definition: Invertible Linear Map
 
 __Def__ Let $T : V \rightarrow W$ be linear. We say $T$ is invertible if 
 $$\exists S : W \rightarrow V \text{ linear such that }$$
@@ -721,7 +721,7 @@ $$T \circ S_1 = T \circ S_2 = I_W$$
 $$S_1 = S_1 \circ I_W = S_1 \circ (T \circ S_2) = (S_1 \circ T) \circ S_2 = 
 I_V \circ S_2 = S_2.$$
 
-## 2.20 Definition
+## 2.20 Definition: Inverse of A Linear Map
 
 __Def__ If $T$ has an inverse, denote it $T^{-1}$.
 
@@ -779,7 +779,7 @@ Similarly for homogeneity.
 
 # 3 Matrices: a convenient representation of a linear map between vector spaces for a given choice of bases for said vector spaces
 
-## 3.1 Definition
+## 3.1 Definition: Matrix as an Object
 
 __Def__ Let $m,n \in \mathbb{N}, F$ a field. An $m \times n$ matrix over $F$ is
 a grid with $m$ rows and $n$ columns consisting of elements of $F$.
@@ -1205,7 +1205,7 @@ Thus:
 
 $$[T]_\mathcal{C}^\mathcal{C} = Q^{-1} [T]_\mathcal{B}^\mathcal{B}Q$$
 
-## 3.20 Definition
+## 3.20 Definition: Change of Basis Matrix
 
 __Def__ Let $A,B \in M_{mn}(F)$ then we say $B$ is *similar* to $A$ if
 
@@ -1247,8 +1247,7 @@ __Thm__ $V,W$ f.d v.s, and $T: V \rightarrow W$ an isomorphism. The following ar
 
 ## 4.4 Theorem
 
-__Thm__
-__Thm__ $V,W$ f.d v.s, with basis $\mathcal{B}$ and $\mathcal{C}$ respecitvely 
+__Thm__ $V,W$ f.d v.s, with basis $\mathcal{B}$ and $\mathcal{C}$ respectively 
 \begin{enumerate}
 \item[(i)] Given $T: V \to W$, linear, 
 rank$(T)$ = rank$([T]_\mathcal{B}^\mathcal{C})$
