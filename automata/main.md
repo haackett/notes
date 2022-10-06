@@ -297,7 +297,93 @@ Here is another example of this process. Is set-minus closed?
 $$L_1 - L_2 = L_1 \cap \overline{L_2}, \text{ so set minus is closed.}$$
 
 
-## 2.2 Regex
+## 2.2 What is a Regular Expression? 
+*10-6-22*
 A regular expression is a finite expression for a possibly infinite language. 
 For which languages can we express them in regular expressions? Regular languages.
 
+__Def__ $\Sigma$ is an alphabet. Let's talk about *regular expressions over this alphabet*.
+The definition of a Regular Expression (rexp) over $\Sigma$ is inductive.
+
+Base:
+$$\epsilon \text{ is a regular expression}$$
+$$\phi \text{ is a regular expression}$$
+$$a \in \Sigma \text{ is a regular expression}$$
+
+If $x, y$ are regular expressions, then so is
+
+\begin{enumerate}
+\item[(i)] xy
+\item[(ii)] x+y
+\end{enumerate}
+
+If $x$ is a regular expression, then so is $x^*$.
+
+__Def__ For rexp $x, L(x)$ is the language described by $x$.
+
+__Examples__ 
+
+$$L(\epsilon) = \{ \epsilon \}$$
+$$L(\phi) = \{ \}$$
+$$L(a) = \{ a \}$$
+$$L(xy) = L(x)L(y)$$
+$$L(x+y) = L(x) \cup L(y)$$
+$$L(x^*) = (L(x))^*$$
+
+Let $\Sigma = \{ 0,1 \}$. Then
+$$L(101) = L(1)L(0)L(1) = \{1\}\cdot\{0\}\cdot\{1\} = \{101\}$$
+$$L((0+1)^*) = (L(0+1))^* = (L(0)\cup L(1))^* = ({0,1})^* = \Sigma^*$$
+
+Intuitively, $(0+1)^*$ says "0 or 1 repeated zero or more times."
+
+$$L((0^*1^*)^*) =?$$
+
+First, look at $L(0^*1^*) = \{\epsilon, 0, 1, \ldots \}$. So 
+$$L((0^*1^*))^* = \{\epsilon, 0, 1, \ldots \}^* = \Sigma^* = L((0+1)^*)$$
+
+This shows that different looking regular expressions can describe the same 
+language.
+
+$$L(00^*) = \text{ 0 followed by 0 repeated 0 or more times.}$$
+
+__Notation__ $xx^* = 0^+$, or $x$ repeated *one or more times*.
+
+__Example__ All strings containing 10 and 01
+
+$$...10...01...$$
+$$...01...10...$$
+$$.....101.....$$
+$$.....010.....$$
+\begin{align*}
+&  (1+0)^*10(1+0)^* 01(1+0)^* \\
++ & (1+0)^*01(1+0)^*10(1+0)^*		\\
++ & (1+0)^* 101 (1+0)^*		\\
++ & (1+0)^* 010 (1+0)^*		\\
+\end{align*}
+
+__Example__ All strings containing exactly two 1's or exactly three 1's.
+
+$$0^*1 0^* 1 0^* + 0^* 1 0^* 1 0^* 1 0^*$$
+
+__Example__ All strings of even length.
+
+$$(00 + 01 + 10 + 11)^*$$
+
+__Example__ All strings with even number of 1's.
+
+$$\ldots1 \ldots 1 \ldots \mid \leftarrow \text{ also in L. } \rightarrow$$
+$$0^* + (0^* 1 0^* 1 0^*)^*$$
+
+__Example__ All strings with odd number of 1's.
+
+$$\ldots 1 \ldots 1 \ldots \mid \leftarrow \text{ even number of 1's } \rightarrow$$
+$$(0^*10^*)(0^*10^*10^*)^*$$
+
+__Example__ All strings with even number of 1's and even number of 0's.
+
+$$00 \mid \leftarrow \text{ also in L. } \rightarrow $$
+$$11 \mid \leftarrow \text{ also in L. } \rightarrow $$
+$$01 \mid \leftarrow \text{ must have 01 or 10 } \rightarrow$$
+$$10 \mid \leftarrow \text{ must have 01 or 10 } \rightarrow$$
+
+$$\left(00 +	11 + (10 + 01)(00+11)^*(01+10)\right)^* $$

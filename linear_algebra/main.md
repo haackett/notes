@@ -777,6 +777,7 @@ The linearity of $S$ follows from the linearity of $T$.
 
 Similarly for homogeneity.
 
+
 # 3 Matrices: a convenient representation of a linear map between vector spaces for a given choice of bases for said vector spaces
 
 ## 3.1 Definition: Matrix as an Object
@@ -1249,7 +1250,7 @@ __Thm__ $V,W$ f.d v.s, and $T: V \rightarrow W$ an isomorphism. The following ar
 
 __Thm__ $V,W$ f.d v.s, with basis $\mathcal{B}$ and $\mathcal{C}$ respectively 
 \begin{enumerate}
-\item[(i)] Given $T: V \to W$, linear, 
+\item[(i)] Given $T: V \to W$, 
 rank$(T)$ = rank$([T]_\mathcal{B}^\mathcal{C})$
 \item[(ii)] nullity$(T)$ = nullity$([T]_\mathcal{B}^\mathcal{C})$.
 \end{enumerate}
@@ -1261,9 +1262,214 @@ and $n=\text{rank}([T]_\mathcal{B}^\mathcal{C}) + \text{nullity}([T]_\mathcal{B}
 Want to show that 
 $$\text{nullity}(T) = \text{nullity}([T]_\mathcal{B}^\mathcal{C}).$$
 
-By 4.2, the image of $[\text{Ker}(T)]_\mathcal{B}$ is a subspace of $\mathbb{R}^n$.
+By 4.2, the image of $[\text{Ker}(T)]_\mathcal{B}$ is a subspace of $\mathbb{R}^n$
+and it has the same dimension of the kernel of $T$.
 
 $$\text{nullity}(T) = \text{dim(Ker}(T)) = \text{dim([Ker}(T)]_\mathcal{B}).$$
 
 Claim: $[\text{Ker}(T)]_\mathcal{B} = \text{Ker}([T]_\mathcal{B}^\mathcal{C})$.
+
+*This is actually overkill, but we get something stronger!*
+
+Note: 
+
+$$[\text{Ker}(T)]_\mathcal{B} = \{ [\vec{v}]_\mathcal{B} \mid \vec{v} \in V \mid T(\vec{v}) = \vec{0} \}$$
+
+$$\text{Ker}([T]_\mathcal{B}^\mathcal{C}) = \{ \vec{x} \in \mathbb{R}^n \mid [T]_\mathcal{B}^\mathcal{C} \vec{x}= \vec{0} \}$$
+$$= \{ \vec{x} \in \mathbb{R}^n \mid [T]_\mathcal{B}^\mathcal{C}[\vec{v}]_\mathcal{B} = \vec{0}, \vec{x} = [\vec{v}]_\mathcal{B} \}$$
+This is because $[\cdot]_\mathcal{B}$ is an isomorphism.
+
+$$= \{ [\vec{v}]_\mathcal{B} \in \mathbb{R}^n \mid [T]_\mathcal{B}^\mathcal{C}[\vec{v}]_\mathcal{B} = \vec{0}, \vec{v}\in V \} $$
+$$= \{ [\vec{v}]_\mathcal{B} \mid [T(\vec{v})]_\mathcal{C} = \vec{0}, \vec{v} \in V \}$$
+$$ \{ [\vec{v}]_\mathcal{B} \mid [T(\vec{v})]_\mathcal{C} = [\vec{0}]_\mathcal{C}, \vec{v}\in V\}$$
+This is because $[\cdot]_\mathcal{C}$ is an isomorphism.
+
+$$= \{ [\vec{v}]_\mathcal{B} \mid T(\vec{v}) = \vec{0}, \vec{v} \in V \},$$ 
+as desired.
+
+
+## 4.5 Theorem
+
+__Thm__ Let $S = \{ \vec{v}_1, \dots, \vec{v}_n \} \subseteq \mathbb{R}^m$, and 
+$A = [\vec{v}_1 \ldots \vec{v}_n],$ so A is $m\times n$.
+
+Then
+\begin{enumerate}
+\item[(i)] $S$ is lin. ind. if and only if $\text{rank}(A) = n$.
+\item[(ii)] $S$ spans $R^m$ if and only if $\text{rank}(A) = m$.
+\item[(iii)] $S$ is a basis for $R^m$ if and only if $\text{rank}(A) = m = n.$
+\end{enumerate}
+
+__Pf__ By Homework.
+
+## 4.6 Example
+
+We can use Theorems 4.3 and 4.5 to transform problems into statements about 
+matrices:
+
+Question: Is $S = \{ x^2 + 2x -1, 4x + 1, x^2 + 7\} \subset P_2(\mathbb{R})$ linearly independent?
+
+Choose $\mathcal{B} = \{ x^2, x, 1\}$ as a basis. Then $S$ is linearly independent $\iff [S]_\mathcal{B}$ 
+is lin. ind. by Theorem 4.3. By 4.5 $S$ is lin. ind. if and only if the matrix below, $A$,
+has rank 3.
+
+$$
+\begin{bmatrix} 
+1	&	0	&	1 \\
+2	&	4	&	0 \\
+-1	&	1	&	7 \\
+\end{bmatrix} .
+$$
+
+Now, how do we determine the rank of a matrix?
+
+## 4.7 Theorem
+
+__Thm__ Let $A_{mn}, P_{mn}, Q_{mn}$ be matrices with $P,Q$ invertible.
+Then:
+\begin{enumerate}
+\item[(a)] rank$(AQ) = \text{rank(A)}$.
+\item[(b)] rank$(PA) = \text{rank(A)}$.
+\item[(c)] rank$(PAQ) = \text{rank(A)}$.	
+\end{enumerate}
+
+__Pf__ By Homework.
+
+
+## 4.8 Definition: Elementary Row Operations (ERO)
+
+\begin{enumerate}
+\item[(i)] Row Interchange.
+$$
+\begin{bmatrix} 
+1	&	2	&	3	\\
+4	&	5	&	6	\\
+7	&	8	&	9	\\
+\end{bmatrix} 
+\sim
+\begin{bmatrix} 
+4	&	5	&	6	\\
+1	&	2	&	3	\\
+7	&	8	&	9	\\
+\end{bmatrix} 
+$$
+$$R_1 \leftrightarrow R_2$$
+
+\item[(ii)] Row Scaling (non-zero!)
+$$
+\begin{bmatrix} 
+1	&	2	&	3	\\
+4	&	5	&	6	\\
+7	&	8	&	9	\\
+\end{bmatrix} 
+\sim
+\begin{bmatrix} 
+1	&	2	&	3	\\
+8	&	10	&	11	\\
+7	&	8	&	9	\\
+\end{bmatrix} 
+$$
+$$2R_2 \rightarrow R_2$$
+
+\item[(iii)] Row Replacement
+$$
+\begin{bmatrix} 
+1	&	2	&	3	\\
+4	&	5	&	6	\\
+7	&	8	&	9	\\
+\end{bmatrix} 
+\sim
+\begin{bmatrix} 
+1	&	2	&	3	\\
+6	&	9	&	12	\\
+7	&	8	&	9	\\
+\end{bmatrix} 
+$$
+$$2R_1 + R_2 \rightarrow R_2$$
+\end{enumerate}
+
+## 4.9 Definition
+
+__Def__ Let $I_n$ be the $n\times n$ identity. Perform a single ERO, say $R_*$,
+on $I_n$ to get $E$:
+
+$$I_n \underset{R_*}{\sim} E$$
+
+We call $E$ an **elementary matrix**.
+
+## 4.10 Example
+
+$$ I_3 = \begin{bmatrix} 
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+\end{bmatrix} 
+\sim
+\begin{bmatrix} 
+1 & 0 & 0 \\
+4 & 1 & 0 \\
+0 & 0 & 1 \\
+\end{bmatrix} 
+= E
+$$
+$$4R_1  + R_2 \rightarrow R_2$$
+
+Consider,
+
+$$ A = \begin{bmatrix} 
+a 	&	b	&	c	\\
+d	&	e	&	f	\\
+g	&	h	&	i	\\
+\end{bmatrix} 
+$$
+Then
+$$ EA = \begin{bmatrix} 
+a 	&	b	&	c	\\
+4a+d	&	4b+e	&	4c+f	\\
+g	&	h	&	i	\\
+\end{bmatrix} 
+$$
+
+## 4.11 Theorem
+
+__Thm__ If $A_{m \times n}$ is a matrix and $E$ is an elementary matrix, then $EA$ is 
+the matrix that results from performing $R_*$ on $A$, where $I \underset{R_*}{\sim} E$
+
+__Pf__ True, but annoying. See Example 4.10.
+
+
+## 4.12 Theorem
+
+__Thm__ Elementary matrices are invertible.
+
+__Pf__ Case by case. 
+
+\begin{enumerate}
+\item[(i)] Interchange. If 
+$$I_n \underset{R_i \leftrightarrow R_j}{\sim} E,$$
+and 
+$$I_n \underset{R_i \leftrightarrow R_j}{\sim} E,$$
+then 
+$$EE = I_n.$$
+
+\item[(ii)] Row Scaling. If 
+$$I_n \underset{cR_i \rightarrow R_i}{\sim} E$$
+and 
+$$I_n \underset{\frac{1}{c}R_i \rightarrow R_i}{\sim} F,$$ 
+then 
+$$FE = I_n$$
+$$EF = I_n.$$
+
+\item[(iii)] If 
+$$I_n \underset{cR_i + R_j \rightarrow R_j}{\sim} E$$
+and 
+$$I_n \underset{-cR_i + R_j \rightarrow R_j}{\sim} F$$ 
+then 
+$$EF=FE= I_n.$$
+	
+\end{enumerate}
+
+## 4.13 Corollary
+
+Elementary matrices preserve rank!
 
