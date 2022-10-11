@@ -1473,3 +1473,301 @@ $$EF=FE= I_n.$$
 
 Elementary matrices preserve rank!
 
+__Pf__ Use 4.7 and 4.12.
+
+## 4.14 Example
+
+Is $\{ x^2 + 2x -1, 4x + 1, x^2 + 7 \}$ linearly independent? 
+Previously: $S$ is lin. ind. $\iff$ A has rank 3.
+
+$$
+A = \begin{bmatrix}
+	1 & 0 & 1 \\
+	2 & 4 & 0 \\
+	-1 & 1 & 7 \\
+\end{bmatrix}
+\underset{-2R_1 + R_2 \rightarrow R_2,  R_1 + R_3 \rightarrow R_3}{\sim}
+\begin{bmatrix}
+	1 & 0 & 1 	\\
+	0 & 4 & -2 	\\
+	0 & 1 & 8 	\\
+\end{bmatrix}
+$$
+$$
+\underset{R_2 \leftrightarrow R_3}{\sim}
+\begin{bmatrix}
+	1 & 0 & 1 	\\
+	0 & 1 & 8 	\\
+	0 & 4 & -2 	\\
+\end{bmatrix}
+\underset{-4R_2 + R_3 \rightarrow R_3}{\sim}
+\begin{bmatrix}
+	1 & 0 & 1 	\\
+	0 & 1 & 8 	\\
+	0 & 0 & -34 	\\
+\end{bmatrix}
+\underset{\frac{1}{-34}R_3 \rightarrow R_3}{\sim}
+\begin{bmatrix}
+	1 & 0 & 1 	\\
+	0 & 1 & 8 	\\
+	0 & 0 & 1 	\\
+\end{bmatrix}
+= B.
+$$
+$$\text{rank}(A) = \text{rank}(B) = \text{dim(Span}	\{ \vec{b_1}, \vec{b_2}, \vec{b_3} \})$$
+$$= 3, \text{ since columns of $B$ span } \mathbb{R}^3.$$
+
+## 4.15 Defintion
+
+__Def__ A matrix is said to be in **Reduced Row Echelon Form** if 
+
+\begin{enumerate}
+\item[(i)] Rows with all 0's are below all rows that have non-zero entries.
+\item[(ii)] The first non-zero entry in each row much be the only non-zero
+entry in its column.
+\item[(iii)] The first non-zero entry in each row must be 1, and this entry
+must be to the right of the first non-zero entries above it.
+\end{enumerate}
+
+## 4.16 Examples
+
+\begin{enumerate}
+\item[(i)] RREF.
+\begin{enumerate}
+\item[(a)] 
+$$
+\begin{bmatrix}
+1	 & 0  &2  \\
+0	 & 1 &-1  \\
+\end{bmatrix}
+$$
+\item[(b)]
+$$
+\begin{bmatrix}
+	0 & 1 & 2 \\
+	0 & 0 & 0 \\
+	0 & 0 & 0 \\
+\end{bmatrix}
+$$
+\item[(c)]
+$$
+\begin{bmatrix}
+	1 & 2 & 0 \\
+	0 & 0 & 1 \\
+	0 & 0 & 0 \\
+\end{bmatrix}
+$$
+\end{enumerate}
+	
+\item[(ii)] Not in RREF:
+\begin{enumerate}
+\item[(a)]
+$$
+\begin{bmatrix}
+	1 & 2 \\
+	0 & 1 \\
+\end{bmatrix}
+$$
+\item[(b)]
+$$
+\begin{bmatrix}
+	1 & 0 & 0 \\
+	0 & 0 & 0 \\
+	0 & 1 & 0 \\
+\end{bmatrix}
+$$
+
+\item[(c)]
+$$
+\begin{bmatrix}
+	1 & 0 \\
+	0 & -1 \\
+	0 & 0 \\
+	0 & 0 \\
+\end{bmatrix}
+$$
+\end{enumerate}
+\end{enumerate}
+
+## 4.17 Descriptive Example of Row Reduction
+
+Idea: Use ERO's on a matrix to get it to RREF.
+
+\begin{enumerate}
+\item[(a)]
+$$
+\begin{bmatrix}
+	1 & 4 & -5 & 0 \\
+	2 & -1 & 8 & 9 \\
+\end{bmatrix}
+\underset{-2R_1 + R_2 \to R_2}{\sim}
+\begin{bmatrix}
+	1 & 4 & -5 & 0 \\
+	0 & -9 & 18 & 9 \\
+\end{bmatrix}
+$$
+$$
+\underset{-\frac{1}{9} R_2 \to R_2}{\sim}
+\begin{bmatrix}
+	1 & 4 & -5 & 0 \\
+	0 & 1 & -2 & -1 \\
+\end{bmatrix}
+\underset{-4R_2 \to R_1}{\sim}
+\begin{bmatrix}
+	1 & 0 & -3 &  4 \\
+	0 & 1 & -2 & -1 \\
+\end{bmatrix}
+.
+$$
+\item[(b)]
+$$
+\begin{bmatrix}
+	0 & 1 & 4 \\
+	1 & 2 & -1 \\
+	5 & 8 & 0 \\
+\end{bmatrix}
+\underset{R \leftrightarrow R_2}{\sim}
+\begin{bmatrix}
+	1 & 2 & -1 \\
+	0 & 1 & 4 \\
+	5 & 8 & 0 \\
+\end{bmatrix}
+\underset{-5R_1+R_3\to R_3}{\sim}
+$$
+$$
+\begin{bmatrix}
+	1 & 2 & -1 \\
+	0 & 1 & 4 \\
+	0 & -2 & 5 \\
+\end{bmatrix}
+\underset{2R_2 + R_3 \rightarrow R_3}{\sim}
+\begin{bmatrix}
+	1 & 2 & -1 \\
+	0 & 1 & 4 \\
+	0 & 0 & 13 \\
+\end{bmatrix}
+$$
+$$
+\underset{\frac{1}{13} R_3 \rightarrow R_3}{\sim}
+\begin{bmatrix}
+	1 & 2 & -1 \\
+	0 & 1 & 4 \\
+	0 & 0 & 1 \\
+\end{bmatrix}
+\underset{-4R_3 + R_2 \rightarrow R_2}{\sim}
+\begin{bmatrix}
+	1 & 2 & -1 \\
+	0 & 1 & 0 \\
+	0 & 0 & 1 \\
+\end{bmatrix}
+$$
+$$
+\underset{1R_3 + R_1 \rightarrow R_1}{\sim}
+\begin{bmatrix}
+	1 & 2 & 0 \\
+	0 & 1 & 0 \\
+	0 & 0 & 1 \\
+\end{bmatrix}
+\underset{-2R_2 + R_1 \rightarrow R_1}{\sim}
+\begin{bmatrix}
+	1 & 0 & 0 \\
+	0 & 1 & 0 \\
+	0 & 0 & 1 \\
+\end{bmatrix}
+$$
+\end{enumerate}
+
+## 4.18 Definition
+
+__Def__ We say two matrices a **row equivalent** if you can get from one to the
+other using elementary row operations. We write $A \sim B$ is A is row equivalent 
+to $B$.  
+
+$$ A \sim B \iff \exists E_1, \ldots , E_k \text{ such that } E_k \cdots E_1A = B$$
+
+where $E_1,\ldots, E_k$ are elementary matrices.
+
+## 4.19 Theorem
+
+__Thm__ Every matrix is row equivalent to a matrix in RREF. Moreover, this RREF
+is unique.
+
+$$\forall A, \exists! B \text{ such that } A \sim B \text{ and $B$ is in RREF. }$$
+
+__Pf__ Tedious, omitted.
+
+## 4.20 Theorem
+
+__Thm__ If $A,B$ are invertible matrices, then $AB$ is invertible and 
+$$(AB)^{-1} = B^{-1}A^{-1}.$$
+
+__Pf__ Check
+
+$$(AB)(B^{-1}A^{-1}) = I.$$
+$$(B^{-1}A^{-1})(AB) = I.$$
+
+## 4.21 Theorem
+
+__Thm__ Let $A$ be $n\times n$. The following are equivalent ( TFAE ):
+\begin{enumerate}
+\item[(i)] rank$(A) = n$.
+\item[(ii)] $A$ is invertible.
+\item[(iii)] $A \sim I_n$.
+\end{enumerate}
+
+__Pf__ H.W. Go $(iii) \to (ii) \to (i) \to (iii)$
+
+## 4.22 Theorem
+
+__Thm__ Let $A_{n \times n}$ and $A$ invertible, then if $E_1, \ldots, E_k$ are elementary
+matrices such that 
+$$E_k \cdots E_1 A = I_n$$ 
+then
+$$E_k \cdots E_1 I_n = A^{-1}$$
+
+__Pf__ 
+$$E_k \cdots E_1 A = I_n$$ 
+Multiply by $A^{-1}$:
+$$E_k \cdots E_1 I_n = A$$ 
+
+## 4.23 Example
+
+Find the inverse of 
+$$A =
+\begin{bmatrix}
+	0 & 1 & 2 \\
+	1 & 0 & 3 \\
+	4 & -3 & 8 \\
+\end{bmatrix}
+.
+$$
+First consider $[A\mid I_3]$.
+
+$$
+\begin{bmatrix}
+	0 & 1 & 2 & 1 & 0 & 0 \\
+	1 & 0 & 3 & 0 & 1 & 0 \\
+	4 & -3 & 8 & 0 & 0 & 1 \\
+\end{bmatrix}
+\sim
+\begin{bmatrix}
+	1 & 0 & 3 & 0 & 1 & 0 \\
+	0 & 1 & 2 & 1 & 0 & 0 \\
+	4 & -3 & 8 & 0 & 0 & 1 \\
+\end{bmatrix}
+$$
+$$
+\sim
+\begin{bmatrix}
+	1 & 0 & 3 & 0 & 1 & 0 \\
+	0 & 1 & 2 & 1 & 0 & 0 \\
+	0 & -3 & -4 & 0 & -4 & 1 \\
+\end{bmatrix}
+\sim
+\begin{bmatrix}
+	1 & 0 & 0 & 2 & 7 & -\frac{3}{2} \\
+	0 & 1 & 0 & -2 & 4 & -1 \\
+	0 & 0 & 1 & \frac{3}{2} & -2 & \frac{1}{2} \\
+\end{bmatrix}
+$$
+
