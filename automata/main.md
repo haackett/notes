@@ -387,3 +387,173 @@ $$01 \mid \leftarrow \text{ must have 01 or 10 } \rightarrow$$
 $$10 \mid \leftarrow \text{ must have 01 or 10 } \rightarrow$$
 
 $$\left(00 +	11 + (10 + 01)(00+11)^*(01+10)\right)^* $$
+
+## 2.3 Equivalence of rexp and Regular Languages
+*10-11-22*
+
+__Thm__ Let $\Sigma$ be an alphabet. A language $L$ over $\Sigma$ is regular
+$\iff$ there is a rexp $\alpha$ over $\Sigma$ such that 
+$$ L(\alpha) = L.$$
+
+__Pf__ Suppose $\alpha$ is a rexp over $\Sigma$. WTS that $L(\alpha)$ is regular by producing a FA that accepts $L(\alpha)$.
+
+If $\alpha = \epsilon$, then $L(\alpha) = 	\{ \epsilon \}$, which is clearly regular.
+
+If $\alpha = \phi$, then $L(\alpha) = \phi,$ which is clearly
+regular.
+
+If $\alpha = a, a \in \Sigma$, then $L(\alpha) = 	\{ \alpha \}$,which is clearly regular.
+
+Otherwise, start with a simple machine
+```
+		alpha
+	>q---------->f
+```
+
+
+and "refine the machine" based on label on transitions until we have an FA. 
+
+```
+								x
+	x+y						|--------v
+p---------->q		===> 	p------->q
+								y
+```
+```
+								
+	xy							x		y
+p---------->q		===> 	p------->p'------>q
+								
+```
+```
+								
+	x*							epsilon			epsilon	
+p---------->q		===> 	p------------>p'------------>q
+										 ()
+										  x
+```
+Do this construction until transitions are on $a \in \Sigma$ or $\epsilon$.
+
+Now we want to show, if we have a regular language, then we can write a regular expression for it.
+
+Suppose $L$ is regular. Then there exists a DFA $M$ such that $L(M) = L$. Want to start with $M$ and derive a regular expression for $L(M)$.
+
+Add a new initial state $i$ and final state $f$ to $M$ and modify appropriately i.e. make $i$ the only initial state and $f$ the only final state, use $\epsilon$-transitions to not modify the language.
+
+Eliminate states and transitions of $M$ to derive 
+
+```
+	rexp
+>o-------->o
+```
+
+What does eliminating transitions mean? If you have
+
+```
+	x								x+y
+p-------->q				===> 	p-------->q
+|		  ^	
++---------+
+	y
+```
+
+\newpage
+Eliminating state $p$ is a bit more complicated.
+
+
+```
+		 c
+     b1	 ()  a1 
+p_1----->p------>q1
+.	   /  \      . 
+.	  /    \     .
+.	 /      \    .
+.	/        \   .
+pn_/          \__qm
+```
+
+If we want to delete $p$, then 
+
+```
+for each i
+	for each j
+		add pi to qj a transition labeled bi c* aj
+```
+
+If you continue this process, eventually you will be left with
+
+```
+	   rexp
+>i------------>f
+```
+
+as desired.
+
+## 2.4 Nonregular Languages?
+
+Set of all languages is $\mathcal{P}(\Sigma^*)$, which is uncountable. But DFA's are enumerable, so there must exists nonregular languages.
+
+- Every finite $L$ is regular.
+
+***
+*Sketch of the Pumping Lemma:*
+
+If $L$ is regular, then every "long string" in $L$ satisfies some property $P$.
+
+To show a language $L$ is not regular, argue it has a *specific* "long string" that breaks property $P$.
+
+***
+
+Let's actually derive the Pumping Lemma.
+
+Suppose $L$ is regular.
+
+Let $n$ be the number of states in the smallest DFA accepting $L$.
+
+Let $w \in L$ be such that $|w| \geq n$.
+So $w = a_1a_2\ldots a_{n-1}a_n \ldots$.
+
+Think of what the smallest machine does on $w$. Since $w \in L$, there exists a path from $q_0$ to a final state $f$.
+
+```
+	a_1		a_2			 an-1	 an	
+>q0----->o------>	...	------>o----->o~~~~~~~~>f
+
+|-------------------------------------|
+				n+1 states
+```
+
+Number of states is $n$, so therefore at least one state repeats in our path. Call this state $q$
+
+```
+						w
+|-----------------------------------------------------------|
+	a_1		a_2			 			 an-1	 an	
+>q0----->o------>  ... q ... q ...	------>o----->o~~~~~~~~>f
+
+|-----------------------|----|------------------------------|
+		x				  y			      	z
+
+```
+
+$x$ could be $\epsilon$. $z$ could be $\epsilon$. But $|y| \geq 1$ since this is a DFA.
+
+$|xy| \leq n$.
+
+*Importantly*, $xz \in L$, $xyz \in L$, and $xy^2z \in L$. Note,
+$$xy^nz \in L, \forall n \in \mathbb{N}_{\geq 0}$$
+
+***
+	
+__Lemma (The Pumping Lemma)__ Let $L$ be a regular language, then there exists a constant $n$ that depends only on $L$ such that every string $w \in L$ with $|w| \geq n$ can be written as
+$$w=xyz$$
+such that
+\begin{enumerate}
+\item[(i)] $|y| \geq 1$,
+\item[(ii)] $|xy| \leq n$,
+\item[(iii)] and $xy^kz \in L, \forall k \in \mathbb{N}_{\geq 0}$. 
+\end{enumerate}
+
+***
+
+Preview of a nonregular language: { 01, 0011, 000111, \ldots \}.
