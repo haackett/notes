@@ -1771,3 +1771,268 @@ $$
 \end{bmatrix}
 $$
 
+## Intermission for MatLab Training
+*10-11-22*
+
+## 4.24 Theorem: Inverse for a $2 \times 2$ Matrix
+
+__Thm__ Let 
+
+$$
+A = 
+\begin{bmatrix}
+	a & b \\
+	c & d \\
+\end{bmatrix}
+$$
+
+Then $A$ is invertible if and only if $ad -bc \neq 0$. In this case
+$$A^{-1} = \frac{1}{ad-bc}
+\begin{bmatrix}
+	d & -b \\
+	-c & a \\
+\end{bmatrix}
+.
+$$
+
+__Pf__ If $ad-bc \neq 0$, then 
+$$
+\frac{1}{ad-bc}
+\begin{bmatrix}
+	d & -b \\
+	-c & a \\
+\end{bmatrix}
+$$
+exists, and is an inverse by inspection. So $A$ is invertible.
+
+Now, assume $A$ is inv. By Theorem 4.21, $A \sim I$.
+
+Let
+$$A = 
+\begin{bmatrix}
+	a & b \\
+	c & d \\
+\end{bmatrix}
+.$$
+
+Now row reduce: 
+$$
+\begin{bmatrix}
+	a & b \\
+	c & d \\
+\end{bmatrix}
+\sim
+\begin{bmatrix}
+	a & b \\
+	ac & ad \\
+\end{bmatrix}
+\sim
+\begin{bmatrix}
+	a & b \\
+	0 & ad-bc \\
+\end{bmatrix}
+.$$
+
+We know this must be row equivalent to the identity, so $ad-bc \neq 0$. 
+
+## 4.25 Theorem: The Invertible Matrix Theorem
+
+__Thm__ $A$ and $n \times n$ matrix. TFAE
+\begin{enumerate}
+\item[(a)] $A$ is invertible.
+\item[(b)] $A : \mathbb{R}^n \to \mathbb{R}^n$ is an isomorphism. 
+\item[(c)] The columns of $A$ span $\mathbb{R}^n$.
+\item[(d)] The columns of $A$ are linearly independent. 
+\item[(e)] $A\vec{x} = \vec{0} \iff \vec{x}= \vec{0}$.
+\item[(f)] $A : \mathbb{R}^n \to \mathbb{R}^n$ is injective.
+\item[(g)] $A : \mathbb{R}^n \to \mathbb{R}^n$ is surjective.
+\item[(h)] $A \sim I_n$.
+\item[(i)] Columns of $A$ are a basis for $\mathbb{R}^n$.
+\item[(j)] Ker$(A) = 	\{ \vec{0} \}$.
+\item[(k)] Range$(A) = \mathbb{R}^n$.
+\item[(l)] rank$(A) = n$.
+\end{enumerate}
+
+__Pf__ Consequence of previous theorems.
+
+## 4.26 Example of an Invertible $3 \times 3$
+
+Consider 
+$$
+A= 
+\begin{bmatrix}
+	a & b & c \\
+	d & e & f \\
+	g & h & i \\
+\end{bmatrix}
+\sim 
+\begin{bmatrix}
+	a & b & c \\
+	ad & ae & af \\
+	ag & ah & ai \\
+\end{bmatrix}
+\sim	
+\begin{bmatrix}
+	a & b & c \\
+	0 & ae-bd & af-cd \\
+	0 & ah-bd & ai-cd \\
+\end{bmatrix}
+$$
+$$ 
+\sim	
+\begin{bmatrix}
+	a & b & c \\
+	0 & ae-bd & af-cd \\
+	0 & ah-bd & ai-cd \\
+\end{bmatrix}
+\sim
+\begin{bmatrix}
+	a & b & c \\
+	0 & ae-bd & af-cd \\
+	0 & (ah-bd)(ae-bd) & (ai-cd)(ae-bd) \\
+\end{bmatrix}
+$$
+$$
+\sim
+\begin{bmatrix}
+	a & b & c \\
+	0 & ae-bd & af-cd \\
+	0 & 0 & * \\
+\end{bmatrix}
+$$
+
+where $* = (ai-cg)(ae-bd) -(ah-bg)(af-cd)$.
+
+$$(ai-cg)(ae-bd) -(ah-bg)(af-cd) = a(aei -afh - bdi + bfg + cdh -ceg)$$
+$$= \underbrace{a\left[ a(ei-fh) - b(di -fg) + c(dh -eg) \right]}_{detA}.$$
+ So $A$ inv iff $det A \neq 0$.
+
+*Note:* need $a \neq 0$ and one of $\{ ae -bd, ah-bg \}$ not zero.
+
+
+## 4.27 Definition
+
+__Def__ Let $A$ be $n \times n$. Define $A_{ij}$ by taking $A$ and removing the
+$i$th row and $j$th column.
+
+So $A_{ij}$is an $(n-1) \times (m-1)$ matrix.
+
+e.g.
+$$A = 
+\begin{bmatrix}
+	1 & 4 & -1 \\
+	0 & \pi & 2 \\
+	\sqrt{2} & 7 & \frac{3}{2} \\
+\end{bmatrix}
+,
+$$
+$$A_{23} = 
+\begin{bmatrix}
+	1 & 4 \\
+	\sqrt{2} & 7 \\
+\end{bmatrix}
+.
+$$
+
+## 4.28 Definition
+
+__Def__ Let $A$ be $n \times n$.
+\begin{enumerate}
+\item[(i)] If $n=2$, then define 
+$$\text{det}A= a_{11}a_{22} - a_{12}a_{21}$$
+
+\item[(ii)] If $n > 2$, then define 
+$$\text{det}A = \sum_{j=1}^n (-1)^{1+j} a_{1j} \text{det}(A_{1j})$$
+\end{enumerate}
+
+## 4.29 Definition
+
+__Def__ Let $A$ be $n \times n$. The $(i,j)$-cofactor of $A$ is 
+$$C_{ij} = (-1)^{i+j} \text{det}(A_ij)$$
+
+
+## 4.30 Theorem
+
+__Thm__ Let $A$ be $n \times n$:
+
+$$\text{det}(A) = \sum_{i=1}^n a_{ij}C_{ij}, \text{ for fixed j }$$
+or
+$$= \sum_{j=1}^n a_{ij}C_{ij}, \text{ for fixed i. }$$
+
+__Pf__ Tedious, omitted.
+
+
+## 4.31 Examples
+
+\begin{enumerate}
+\item[(a)]
+$$A=
+\begin{bmatrix}
+-4 & \frac{3}{2} & \sqrt{2} \\
+\pi	 & 7 & 3 \\
+0	 & 0 & 1 \\
+\end{bmatrix}
+$$
+Let's fix the 3rd row.
+
+$$
+\text{det}A = 1 \cdot 
+\begin{vmatrix}
+	-4 & \frac{3}{2} \\
+	\pi & 7 \\
+\end{vmatrix}
+= -28 -\frac{3\pi}{2}.
+$$
+	
+\item[(b)]
+$$
+B = 
+\begin{bmatrix}
+	1 & 0 & 0 & 0 & 0 \\
+	-1 & 2 & 0 & 0 & 0 \\
+	7 & 22.5 & 3 & 0 & 0 \\
+\frac{3}{100} & \sqrt{5} & 2i-3 & 4 & 0 \\
+	16.2 & \frac{1}{1000} & 34 & 0 & 5 \\
+\end{bmatrix}
+$$
+$$
+\text{det}(B) = 5 \cdot 
+\begin{vmatrix}
+	1 & 0 & 0 & 0 \\
+	-1 & 2 & 0 & 0 \\
+	7 & 22.5 & 3 & 0 \\
+\frac{3}{1000} & \sqrt{5} & 2i-3 & 4 \\
+\end{vmatrix}
+$$
+$$
+= 5 \cdot 4 \cdot 
+\begin{vmatrix}
+	1 & 0 & 0 \\
+	-1 & 2 & 0 \\
+	7 & 22.5 & 3 \\
+\end{vmatrix}
+=
+5 \cdot 4 \cdot 3 \cdot 2 \cdot 1
+=
+120
+$$
+\end{enumerate}
+
+
+
+## 4.31 Theorem
+
+__Thm__ Let $A,B$ be $n \times n$
+
+\begin{enumerate}
+\item[(a)] $A$ triangular $\implies$ det $A = \Pi_{i=1}^n a_{ii}$
+\item[(b)] $A \sim B$ by a row replacement $\implies$ det($A$) = det($B$).
+\item[(c)] $A \sim B$ by a row interchange $\implies$ det($B$) = -det$A$.
+\item[(d)] $A \underset{kR_i \to R_i}{\sim} B \to \text{det}B = k\text{det}A$
+\end{enumerate}
+
+
+
+
+
+

@@ -1,4 +1,40 @@
 use num::integer::Roots;
+use num::integer::*;
+
+/// Iterator for Collatz always returns None after the sequence
+/// has reached 1.
+#[derive(Debug)]
+pub struct Collatz {
+    curr: u64,
+    next: u64
+}
+
+impl Iterator for Collatz {
+    type Item = u64;
+    fn next(&mut self) -> Option<Self::Item> {
+        // We hit 1!
+        if self.curr == 1 {
+            return None
+        } 
+
+        self.curr = self.next;
+        if self.curr.is_even() {
+            self.next /= 2;
+        } else {
+            self.next = 3 * self.next + 1;
+        } 
+        Some(self.curr)
+    }
+}
+
+impl Collatz {
+    pub fn from(n: u64) -> Self {
+        Collatz {
+            curr: 0,
+            next: n,
+        } 
+    }
+}
 
 #[derive(Debug)]
 pub struct TriangleNumbers {

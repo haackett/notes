@@ -545,6 +545,9 @@ $$xy^nz \in L, \forall n \in \mathbb{N}_{\geq 0}$$
 
 ***
 	
+
+## 2.5 The Pumping Lemma
+
 __Lemma (The Pumping Lemma)__ Let $L$ be a regular language, then there exists a constant $n$ that depends only on $L$ such that every string $w \in L$ with $|w| \geq n$ can be written as
 $$w=xyz$$
 such that
@@ -557,3 +560,58 @@ such that
 ***
 
 Preview of a nonregular language: { 01, 0011, 000111, \ldots \}.
+
+## 2.6 Examples of the Pumping Lemma
+*10-13-22*
+
+__Ex 1__ Consider $\{0^i1^i \mid i \in \mathbb{N} \} = \{01,0011,000111,\ldots\}$.
+
+__Pf__ Let $n$ be the constant of Pumping Lemma. Consider
+$$w = 0^n1^n.$$
+$w \in L$ and $w \geq n$.
+If $L$ is regular, then there exists $x,y,z$ such that
+$w =xyz$ and
+\begin{enumerate}
+\item[(i)]$|y| \geq 1$
+\item[(ii)] $|xy| \geq n$
+\item[(iii)] $\forall k \geq 0, xy^kz \in L$
+\end{enumerate}
+Because of (ii) and (iii), anyway we write $w = xyz$, $y$ must be one or more 0's.
+Let $y = 0^a$ where $1 \leq a \leq n$. Then 
+
+$$xy^2z = 0^{(n-a)+a+a}1^n$$
+
+This is not in the language because $n + a > n$. Therefore $L$ is not regular.
+
+
+__Ex 2__ $\{ w \mid w \text{ has equal number of 0's and 1's}\}$.
+
+Pick $010^n1^n$. $w \in L, |w| \geq n$. Consider $w = xyz, x=\epsilon, y=01, z=0^n1^n$.
+This string will not work, because we can pump $y$.
+
+However, if we pick the same string as the last one. This argument will work.
+
+__Note__ There exists languages that are not regular that cannot be proved to be nonregular with the Pumping Lemma.
+
+__Ex 3__ Show $L = \{ 1^i \mid i \text{ is a prime}$ is not regular.
+
+__Pf__ Let $n$ be the constant of Pumping Lemma. Let $p$ be a prime such that $p \geq n$.
+Let $w = 1^p$. Clearly, $w \in L$ and $|w| \geq n$. 
+If $L$ is regular, then there exists $x,y,z$ such that
+$w =xyz$ and
+\begin{enumerate}
+\item[(i)]$|y| \geq 1$
+\item[(ii)] $|xy| \geq n$
+\item[(iii)] $\forall k \geq 0, xy^kz \in L$
+\end{enumerate}
+Anyway $w$ is written as $xyz$, $y=1^a$ where $1 \leq a \leq p$. Then
+
+$$|xy^0z| = p-i$$
+$$|xy^1z| = p$$
+$$|xy^2z| = p+ i$$
+$$|xy^3z| = p+ 2i$$
+
+In general,
+$$|xy^{j+1}z| = p + j\cdot i$$
+Pick value for $j$ such that $p + j\cdot i$ is not prime. How about $j=p$
+$$|xy^{p+1}z| = p + pi = p(1 + i) \implies \text{ not a prime, as $1+i \geq 2$. }$$
