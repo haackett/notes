@@ -1,0 +1,355 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
+\usepackage[a4paper,margin=3.5cm]{geometry} %Sets the page geometry
+\usepackage{url}
+\usepackage{dirtytalk}
+\usepackage{graphicx} % Package for \includegraphics
+\usepackage{wrapfig} % Figure wrapping
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+\setlength{\parskip}{1em} % Set space when paragraphs are used
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{tcolorbox}
+\usepackage{mathtools}
+\usepackage{tikz-cd}
+
+% Lets you use \blankpage to make a blank page
+\newcommand{\blankpage}{
+\newpage
+\thispagestyle{empty}
+\mbox{}
+\newpage
+}
+
+% Self Explanatory
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}{Definition}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newenvironment{proof}{\paragraph{Proof}}{\hfill$\square$}
+
+% Other
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor} %Floor function
+\setcounter{section}{-1}
+
+\begin{document}
+\title{Linear Algebra II Notes \\
+\Large{Factorization of Linear Maps}}
+\author{Aidan Hackett}
+\maketitle
+
+\section{Motivation}
+
+\subsection{The Big Picture}
+Math:
+
+$$hard \longrightarrow simple$$
+$$hard \longrightarrow linear$$
+
+\subsection{}
+\begin{equation}
+	\left\{ \begin{aligned} 
+		a_{11}x_{1} + a_{12}x_{2} + a_{13}x_{3} = b_{1} \\
+		a_{21}x_{1} + a_{22}x_{2} + a_{23}x_{3} = b_{2} \\
+		a_{31}x_{1} + a_{32}x_{2} + a_{33}x_{3} = b_{3} \\
+	\end{aligned} \right.
+\end{equation}
+
+
+
+Suppose, $A=PDP^{-1}$, where $D$ is diagonal.
+
+$$A\vec{x}=(A=PDP^{-1})\vec{x} = \vec{b}.$$
+$$DP^{-1}\vec{x} = P^{-1}\vec{b.}$$
+
+Let $$\vec{c} := P^{-1}\vec{b}.$$
+
+$$DP^{-1}\vec{x} = \vec{c}.$$
+
+... we've made the "difficult" simple.
+
+\subsection{Discrete Time Evolution Example}
+
+Suppose $\vec{x}_t \in \mathbb{R}^m$ is the state of a system at time A, where $t\in\mathbb{Z}_{\geq 0}$ and the system evolves by:
+
+$$ \vec{x}_{t+1} = A\vec{x}_t$$
+
+where $A : \mathbb{R}^n \rightarrow \mathbb{R}^n$, A linear.
+
+Then
+
+$$\vec{x}_1 = A\vec{x}_0.$$
+$$\vdots$$
+$$\vec{x}_{n+1} = A\vec{x}_n = A^{n+1}\vec{x}_0.$$
+
+Suppose $A=PDP^{-1}$. Then
+
+$$ A^2 = (PDP^{-1})^2 = (PDP^{-1})(PDP^{-1}) = PD^2P^{-1}$$
+$$\implies A^{n+1} = PD^{n+1}P^{-1}.$$
+
+Let $\vec{c} := P^{-1}\vec{x}$. Then
+
+$$PD^{n+1}\vec{c} = \vec{x}_{n+1}$$
+
+\subsection{Factoring Maps}
+\subsection{Some Goals for Factoring Maps}
+For a linear map
+
+$$A : V \rightarrow W$$
+
+here are the potential factorizations of $A$ in order of "niceness":
+
+1. Spectral Theorem
+2. Diagonalization
+3. Jordan Canonical Form
+4. Singular Value Decomposition
+
+\section{Vector Spaces}
+\subsection{Note}
+\subsection{Definition: Vector Space}
+\begin{definition}
+	A vector space over a field $F$ is a set $V$ with an addition operation
+and a scalar multiplication operation such that $\forall \vec{x},\vec{y} \in V,
+a,b\in F:$
+\begin{enumerate}
+	\item $\vec{x} + \vec{y} = \vec{y} + \vec{x}$
+	\item $(\vec{x} + \vec{y}) + \vec{z} = \vec{x} + (\vec{y} + \vec{z})$
+	\item $\exists \vec{0} \in V : \vec{0} + \vec{x} = \vec{x}$
+	\item $\exists \vec{-x} \in V : \vec{x} + \vec{-x} = \vec{0}$
+	\item $a(\vec{x} + \vec{y}) = a\vec{x} + a\vec{y}$
+	\item $(a+b)\vec{x} = a\vec{x} + b\vec{x}$
+	\item $1 \cdot \vec{x} = \vec{x}$
+	\item $a(b\vec{x}) = (ab)\vec{x}$
+\end{enumerate}
+
+\end{definition} 
+\subsection{Todd-given Examples}
+\begin{enumerate}
+	\item $\mathbb{R}^n, \forall n \in \mathbb{N}.$ 
+	\item $\mathbb{C}^n, \forall n \in \mathbb{N}.$ 
+	\item $M_{nm}(\mathbb{R})$
+	\item Let $F$ be a field and $S$ a set. Then define $F^S$ as the set of all functions $f: S \rightarrow F$. $F^S$ forms a vector space.
+\end{enumerate}
+
+
+
+
+
+
+
+\section{Diagonalization}
+\subsection{Motivation}
+\begin{enumerate}
+\item[(a)] Suppose $\vec{x}_t \in \mathbb{R}^n$ represents the state of some system at time $t \in \mathbb{Z}$. Further, suppose $A: \mathbb{R}^n \to \mathbb{R}^n$ is linear with $\vec{x}_{t+1} = A\vec{x}_t$.
+
+Given iniital state $\vec{x}_0 \in \mathbb{R}^n$:
+$$\vec{x}_1 = A \vec{x}_0$$
+$$\vec{x}_2 = A(A \vec{x}_0) = A^2 \vec{x}_0$$
+$$\vdots$$
+$$\vec{x}_{k+1} = A\vec{x}_k = \ldots = A^{k+1}\vec{x}_0$$
+
+Suppose:
+\begin{center}
+\begin{tikzcd}[%
+        ,every arrow/.append style={maps to}
+        ,every label/.append style={font=\normalsize}
+		,sep=huge
+        ]
+\mathbb{R}^n \arrow[r, "A"] \arrow[d, "P"'] & \mathbb{R}^n                    \\
+\mathbb{R}^n \arrow[r, "D"']                & \mathbb{R}^n \arrow[u, "P^{-1}"']
+\end{tikzcd}
+	
+\end{center}
+
+$$A^2 = (PDP^{-1})^2$$
+$$=PDP^{-1} PDP^{-1}$$
+$$=PD^2P^{-1}$$
+
+In general, $A^{k+1} = P^{k+1}P^{-1}$.
+
+If $D=$diag$(d_1,...,d_n)$, then 
+$$D^{k+1} = \text{diag}(d_1^{k+1}, \ldots, d_n^{k+1}).$$
+
+\item[(b)] Let $T_{x=0}: \mathbb{R}^2 \to \mathbb{R}^2$ be the map that reflects points across the $y$-axis.
+
+$$T\left(
+\begin{bmatrix}
+	x \\
+	y \\
+\end{bmatrix}
+\right)
+=
+\begin{bmatrix}
+	-x \\
+	y \\
+\end{bmatrix}
+$$
+If $\mathcal{S} = 	\{ e_1, e_2 \}$ be the std. basis for $\mathbb{R}^2$, then
+
+$$
+[T]_\mathcal{S}^\mathcal{S} = [[T(e_1)]_\mathcal{S}, [T(e_2)]_\mathcal{S}]
+=
+\begin{bmatrix}
+	-1 & 0 \\
+	0 & 1 \\
+\end{bmatrix}
+$$
+Now, let $T_{y=2x}: \mathbb{R}^2 \to \mathbb{R}^2$ be the map that reflects points across $y=2x$.
+
+Let's pick 
+$$\begin{bmatrix} 
+1 \\
+2 \\
+\end{bmatrix} 
+\text{ and }
+\begin{bmatrix} 
+-2 \\
+1 \\
+\end{bmatrix} 
+$$
+as our basis vectors. Call this basis $\mathcal{B}$.
+
+Note:
+$$
+T\left(
+\begin{bmatrix} 
+1 \\
+2 \\
+\end{bmatrix} 
+\right)
+=
+\begin{bmatrix} 
+1 \\
+2 \\
+\end{bmatrix} 
+\text{ and }
+T\left(
+\begin{bmatrix} 
+-2 \\
+1 \\
+\end{bmatrix} 
+\right)
+=
+\begin{bmatrix} 
+2 \\
+-1 \\
+\end{bmatrix} 
+$$
+Now, 
+$$
+[T_{y=2x}]_\mathcal{B}^\mathcal{B} = 
+\begin{bmatrix}
+	1 & 0 \\
+	0 & -1 \\
+\end{bmatrix}
+$$
+Then
+$$
+[T(\vec{x})]_\mathcal{B} = [T_{y=2x}]_\mathcal{B}^\mathcal{B}[\vec{x}]_\mathcal{B}
+$$
+Problem: Given $\vec{x} \in \mathbb{R}^2$, how do we find $[\vec{x}]_\mathcal{B}$? Need a change-of-basis matrix:
+
+$$
+Q:= [I]_\mathcal{B}^\mathcal{S} =
+\begin{bmatrix}
+	1 & -2 \\
+	2 & 1 \\
+\end{bmatrix}
+$$
+Then
+$$
+Q^{-1} = [I]_\mathbb{S}^\mathbb{B} =
+\frac{1}{5}
+\begin{bmatrix}
+	1 & 2 \\
+	-2 & 1 \\
+\end{bmatrix}
+.
+$$
+
+So $[T]_\mathcal{B}^\mathcal{B} = Q^{-1}[T]_\mathcal{S}^\mathcal{S}Q$. Solve for A:
+$$A=
+\begin{bmatrix}
+	1 & -2 \\
+	2 & 1 \\
+\end{bmatrix}
+\begin{bmatrix}
+	1 & 0 \\
+	0 & -1 \\
+\end{bmatrix}
+\frac{1}{5}
+\begin{bmatrix}
+	1 & -2 \\
+	2 & 1 \\
+\end{bmatrix}
+=
+\frac{1}{5}
+\begin{bmatrix}
+	-3 & 4 \\
+	4 & 3 \\
+\end{bmatrix}
+$$
+
+So 
+$$
+T_{y=2z}\left(
+\begin{bmatrix}
+	x \\
+	y \\
+\end{bmatrix}
+\right)
+=
+\frac{1}{5}
+\begin{bmatrix}
+	-3x+4y \\
+	 4x+3y  \\
+\end{bmatrix}
+$$
+
+\begin{center}
+\begin{tikzcd}[%
+        ,every arrow/.append style={maps to}
+        ,every label/.append style={font=\normalsize}
+		,sep=huge
+        ]
+\mathbb{R}^n \arrow[d, "Q^{-1}"'] \arrow[r, "T_{y=2x}"]  & \mathbb{R}^n                 \\
+\mathbb{R}^n \arrow[r, "{[T]_\mathcal{B}^\mathcal{B}}"'] & \mathbb{R}^n \arrow[u, "Q"']
+\end{tikzcd}
+	
+\end{center}
+
+\end{enumerate}		
+
+\subsection{}
+\begin{definition}
+A linear map $T: V \to V$, $V$ f.d, is called \textbf{diagonalizable} if there 
+exists a basis $\mathcal{B}$ for $V$ such that $[T]_\mathcal{B}^\mathcal{B}$ is a diagonal matrix.
+\end{definition}
+
+\subsection{Example}
+If $\mathcal{B} = \{ \vec{v}_1, \ldots, \vec{v}_n \}$ is a basis for $V$ such 
+that $T: V \to V$ has $[T]_\mathcal{B}^\mathcal{B}$ diagonal with
+$$[T]_\mathcal{B}^\mathcal{B} = D = \text{diag}(d_1, \ldots, d_n)$$
+then,
+$$[T(\vec{v}_i)]_\mathcal{B} = [T]_\mathcal{B}^\mathcal{B} [\vec{v}_i]\mathcal{B}$$
+$$=
+\begin{bmatrix} 
+d_1	&	& 0\\
+	&	\ddots & \\
+0	&	&	d_n\\
+\end{bmatrix} 
+\begin{bmatrix} 
+0 \\
+\vdots \\
+1\\
+\vdots\\
+0
+\end{bmatrix} 
+=
+d_i[\vec{v}_i]_\mathcal{B}
+$$
+
+
+\end{document}
+

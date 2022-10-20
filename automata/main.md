@@ -615,3 +615,108 @@ In general,
 $$|xy^{j+1}z| = p + j\cdot i$$
 Pick value for $j$ such that $p + j\cdot i$ is not prime. How about $j=p$
 $$|xy^{p+1}z| = p + pi = p(1 + i) \implies \text{ not a prime, as $1+i \geq 2$. }$$
+
+## 2.6 Grammars
+
+Parser in compiler:
+
+- Checks syntax
+- Aware of the grammar for the language
+
+Example
+
+\begin{center}
+meal $\to$ ABC 					\\
+colA $\to$ salad	| 	roll 	\\
+colB $\to$ fish		|	veg	 	\\
+colC $\to$ cake		|	coffee	\\
+\end{center}
+
+meal, colA, colB, colC are the  *variables* or *nonterminals*. salad,roll,fish,veg,
+coke,coffee are the *terminals*.
+
+Above is a grammar with 7 rules (this is because salad | roll counts as two rules).
+
+meal is the *start symbol*. The centered collection are called the 
+*rules* or *productions*.
+
+A *derivation* is a string of terminals obtained by replacing each variable with
+a terminal according to the rules.
+
+Derivation of a string:
+
+\begin{center}
+Start at the start symbol								\\
+
+meal  $\implies$ colA colB colC							\\
+		$\implies$ salad colB colC							\\
+	  $\implies$ salad fish colC						\\
+	  $\implies$ salad fish coffee						\\
+\end{center}
+
+This is called a *leftmost derivation*, where we replace the leftmost variable.
+
+
+__Def__ Formally, a __grammer__ $G = (V,T,P,S)$.
+
+- $V$ is the set of variables or nonterminals
+- $T$ is the set of terminals
+- $P$ is the set of rules or productions
+- $S$ is the start symbol, where $S \in V$.
+
+By convention, we use:
+
+- $x,y,z$ for elements of $V$.
+- $a,b,c$ for elements of $T$.
+- $u,v,w \in T^*$. For example, salad colB colC $\in (V \cup T)$.
+- $\alpha, \beta \in (V \cup T)^*$. For example, salad fish coffee $\in T^*$.
+
+In general, a rule looks like:
+$$ \alpha \to \beta, \text{ where $\alpha,\beta \in (V \cup T)^*$} $$
+
+$$\alpha \underset{G}{\overset{*}{\implies}} \beta $$
+
+This notation means there exists a derivation in $G$ in 0 or more steps from $\alpha$ to $\beta$.
+That is $\alpha$ can *produce* $\beta$ in 0 or more steps using the rules of grammar
+$G$.
+
+The language described by $G$ is the set $L(G)$ where
+
+$$L(G) = \{ u \in T^* \mid S \underset{G}{\overset{*}{\implies}} u\}$$
+
+
+Typically, we use $S$ for the start symbol. Often the start symbol is list in the first rule of the grammar.
+
+***
+
+__Example__
+
+\begin{align*}
+S	&	\to		0S1 \mid 01	\\
+\end{align*}
+
+\begin{tabular}{c|c}
+$S \implies 01$		&		$S \implies 0S1$    	\\
+					&		$\implies	00S11$ 		\\
+					&		$\implies	000S111$	\\
+					&			$\vdots$			\\
+\end{tabular}
+
+So $L(G) = \{ 0^n 1^n \mid n \geq 1 \}$.
+
+
+## 2.7 Chomsky Hierarchy
+
+What sort of grammars can generate what kind of languages?
+
+\begin{tabular}{c c c}
+name of grammar		&		type of grammar		&	restriction on rules \\
+\hline
+
+Unrestricted		&	0						&	none				\\
+context sensitive	&	1						&	$|\alpha| \leq |\beta|$	\\
+context-free		&	2						&	$\alpha \in V$			\\
+regular				&	3						&	$\alpha \in V$ and ($\beta \in T \times V$ or $\beta \in T$)
+\end{tabular}
+
+$L$ is context-free if there exists a context-free grammar $G$ such that $L(G) = L$.

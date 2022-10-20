@@ -2025,14 +2025,211 @@ $$
 __Thm__ Let $A,B$ be $n \times n$
 
 \begin{enumerate}
-\item[(a)] $A$ triangular $\implies$ det $A = \Pi_{i=1}^n a_{ii}$
-\item[(b)] $A \sim B$ by a row replacement $\implies$ det($A$) = det($B$).
-\item[(c)] $A \sim B$ by a row interchange $\implies$ det($B$) = -det$A$.
-\item[(d)] $A \underset{kR_i \to R_i}{\sim} B \to \text{det}B = k\text{det}A$
+\item[(i)] $A$ triangular $\implies$ det $A = \Pi_{i=1}^n a_{ii}$
+\item[(ii)] $A \sim B$ by a row replacement $\implies$ det($A$) = det($B$).
+\item[(iii)] $A \sim B$ by a row interchange $\implies$ det($B$) = -det$A$.
+\item[(iv)] $A \underset{kR_i \to R_i}{\sim} B \to \text{det}B = k\text{det}A$
+\item[(v)] $A$ is invertible $\iff \text{det}A \neq 0$
+\item[(vi)] det$(AB) = $det$(A)$det$(B)$
 \end{enumerate}
 
+__Pf__ 
 
+(i)-(iv), use cofactor expansion.
 
+(v) $A$ inv $\iff A \sim I_n\iff A = E_p\ldots E_1I_n$
+So det$A = (-1)^r k_1\ldots k_s,$ for $r \in \mathbb{N}, k_1 \ldots, k_s \in F.$
 
+(vi) If $A$ or $B$ is not invertible, then both sides are 0. Otherwise, $A$ and $B$ are invertible, so write $A,B$ as product of elementary matrices and use previous results ((i)-(v)). 
 
+# 5 Diagonalization
 
+## 5.1 Motivation
+*10-13-22*
+
+\begin{enumerate}
+\item[(a)] Suppose $\vec{x}_t \in \mathbb{R}^n$ represents the state of some system at time $t \in \mathbb{Z}$. Further, suppose $A: \mathbb{R}^n \to \mathbb{R}^n$ is linear with $\vec{x}_{t+1} = A\vec{x}_t$.
+
+Given iniital state $\vec{x}_0 \in \mathbb{R}^n$:
+$$\vec{x}_1 = A \vec{x}_0$$
+$$\vec{x}_2 = A(A \vec{x}_0) = A^2 \vec{x}_0$$
+$$\vdots$$
+$$\vec{x}_{k+1} = A\vec{x}_k = \ldots = A^{k+1}\vec{x}_0$$
+
+Suppose:
+
+TODO: Diagram
+
+$$A^2 = (PDP^{-1})^2$$
+$$=PDP^{-1} PDP^{-1}$$
+$$=PD^2P^{-1}$$
+
+In general, $A^{k+1} = P^{k+1}P^{-1}$.
+
+If $D=$diag$(d_1,...,d_n)$, then 
+$$D^{k+1} = \text{diag}(d_1^{k+1}, \ldots, d_n^{k+1}).$$
+
+\item[(b)] Let $T_{x=0}: \mathbb{R}^2 \to \mathbb{R}^2$ be the map that reflects points across the $y$-axis.
+
+$$T\left(
+\begin{bmatrix}
+	x \\
+	y \\
+\end{bmatrix}
+\right)
+=
+\begin{bmatrix}
+	-x \\
+	y \\
+\end{bmatrix}
+$$
+If $\mathcal{S} = 	\{ e_1, e_2 \}$ be the std. basis for $\mathbb{R}^2$, then
+
+$$
+[T]_\mathcal{S}^\mathcal{S} = [[T(e_1)]_\mathcal{S}, [T(e_2)]_\mathcal{S}]
+=
+\begin{bmatrix}
+	-1 & 0 \\
+	0 & 1 \\
+\end{bmatrix}
+$$
+Now, let $T_{y=2x}: \mathbb{R}^2 \to \mathbb{R}^2$ be the map that reflects points across $y=2x$.
+
+Let's pick 
+$$\begin{bmatrix} 
+1 \\
+2 \\
+\end{bmatrix} 
+\text{ and }
+\begin{bmatrix} 
+-2 \\
+1 \\
+\end{bmatrix} 
+$$
+Note:
+$$
+T\left(
+\begin{bmatrix} 
+1 \\
+2 \\
+\end{bmatrix} 
+\right)
+=
+\begin{bmatrix} 
+1 \\
+2 \\
+\end{bmatrix} 
+\text{ and }
+T\left(
+\begin{bmatrix} 
+-2 \\
+1 \\
+\end{bmatrix} 
+\right)
+=
+\begin{bmatrix} 
+2 \\
+-1 \\
+\end{bmatrix} 
+$$
+Now, 
+$$
+[T_{y=2x}]_\mathcal{B}^\mathcal{B} = 
+\begin{bmatrix}
+	1 & 0 \\
+	0 & -1 \\
+\end{bmatrix}
+$$
+Then
+$$
+[T(\vec{x})]_\mathcal{B} = [T_{y=2x}]_\mathcal{B}^\mathcal{B}[\vec{x}]_\mathcal{B}
+$$
+Problem: Given $\vec{x} \in \mathbb{R}^2$, how do we find $[\vec{x}]_\mathcal{B}$? Need a change-of-basis matrix:
+
+$$
+Q:= [I]_\mathcal{B}^\mathcal{S} =
+\begin{bmatrix}
+	1 & -2 \\
+	2 & 1 \\
+\end{bmatrix}
+$$
+Then
+$$
+Q^{-1} = [I]_\mathcal{S}^\mathcal{B} =
+\frac{1}{5}
+\begin{bmatrix}
+	1 & 2 \\
+	-2 & 1 \\
+\end{bmatrix}
+.
+$$
+
+So $[T]_\mathcal{B}^\mathcal{B} = Q^{-1}[T]_\mathcal{S}^\mathcal{S}Q$. Solve for A:
+$$A=
+\begin{bmatrix}
+	1 & -2 \\
+	2 & 1 \\
+\end{bmatrix}
+\begin{bmatrix}
+	1 & 0 \\
+	0 & -1 \\
+\end{bmatrix}
+\frac{1}{5}
+\begin{bmatrix}
+	1 & -2 \\
+	2 & 1 \\
+\end{bmatrix}
+=
+\frac{1}{5}
+\begin{bmatrix}
+	-3 & 4 \\
+	4 & 3 \\
+\end{bmatrix}
+$$
+
+So 
+$$
+T_{y=2z}\left(
+\begin{bmatrix}
+	x \\
+	y \\
+\end{bmatrix}
+\right)
+=
+\frac{1}{5}
+\begin{bmatrix}
+	-3x+4y \\
+	 4x+3y  \\
+\end{bmatrix}
+$$
+TODO: Beautiful diagram.
+\end{enumerate}		
+
+## 5.2 Definition
+
+__Def__ A linear map $T: V \to V$, $V$ f.d, is called __diagonalizable__ if there 
+exists a basis $\mathcal{B}$ for $V$ such that $[T]_\mathcal{B}^\mathcal{B}$ is a diagonal matrix.
+
+## 5.3 Example
+
+If $\mathcal{B} = \{ \vec{v}_1, \ldots, \vec{v}_n \}$ is a basis for $V$ such 
+that $T: V \to V$ has $[T]_\mathcal{B}^\mathcal{B}$ diagonal with
+$$[T]_\mathcal{B}^\mathcal{B} = D = \text{diag}(d_1, \ldots, d_n)$$
+then,
+$$[T(\vec{v}_i)]_\mathcal{B} = [T]_\mathcal{B}^\mathcal{B} [\vec{v}_i]\mathcal{B}$$
+$$=
+\begin{bmatrix} 
+d_1	&	& 0\\
+	&	\ddots & \\
+0	&	&	d_n\\
+\end{bmatrix} 
+\begin{bmatrix} 
+0 \\
+\vdots \\
+1\\
+\vdots\\
+0
+\end{bmatrix} 
+=
+d_i[\vec{v}_i]_\mathcal{B}
+$$
