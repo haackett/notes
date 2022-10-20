@@ -1,3 +1,4 @@
+-- Taken from pandoc docuentation
 local system = require 'pandoc.system'
 
 local tikz_doc_template = [[
