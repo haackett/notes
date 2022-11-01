@@ -616,7 +616,11 @@ $$|xy^{j+1}z| = p + j\cdot i$$
 Pick value for $j$ such that $p + j\cdot i$ is not prime. How about $j=p$
 $$|xy^{p+1}z| = p + pi = p(1 + i) \implies \text{ not a prime, as $1+i \geq 2$. }$$
 
-## 2.6 Grammars
+
+
+
+# 3 Grammars
+## 3.1 Introduction
 
 Parser in compiler:
 
@@ -705,7 +709,7 @@ $S \implies 01$		&		$S \implies 0S1$    	\\
 So $L(G) = \{ 0^n 1^n \mid n \geq 1 \}$.
 
 
-## 2.7 Chomsky Hierarchy
+## 3.2 Chomsky Hierarchy
 
 What sort of grammars can generate what kind of languages?
 
@@ -720,3 +724,278 @@ regular				&	3						&	$\alpha \in V$ and ($\beta \in T \times V$ or $\beta \in T
 \end{tabular}
 
 $L$ is context-free if there exists a context-free grammar $G$ such that $L(G) = L$.
+
+## 3.3 Context-Free Grammars and Context-Free Languages 
+
+__Def__ Regular Grammars are grammars were every production is in one of two types
+\begin{enumerate}
+\item[(i)]
+$$A \to aB$$
+\item[(ii)]
+$$A \to a$$
+\end{enumerate}
+
+__Def__ A context-free Grammar are grammars were every production has a variable on
+the left-hand side.
+$$A \to something$$
+
+__Def__ A language $L$ is context-free if and only if there exists a grammar $G$,
+where $G$ is a context-free grammar (CFG), such that $L(G) = L$.
+
+__Ex__ 
+$$S \to SS | 0 | 1 $$
+This is not a regular grammar. This is a context-free grammar with 3 rules.
+But, notice $L(G)$ is certainly a regular language. To see this, consider the rexp
+$(0+1)(0+1)^*$. So, there must exists a regular grammar $G^\prime$ such that 
+$L(G) = L(G^\prime)$.
+
+__Fact__ $L$ is a regular language if and only if there exists a regular grammar 
+$G$ such that $L(G) = L$.
+
+### Ideas for writing grammars
+
+\begin{enumerate}
+\item[(i)] Every nonterminal has a purpose.
+\item[(ii)] Idea is to generate matching symbols "on the outside".
+\item[(iii)] Sequencing: want event $B$ to happen after event $A$.
+\end{enumerate}
+
+__Ex__ Write a CFG for $\{ a^i \mid i \geq 1 \}$
+
+$$G : S \to a | aS$$
+or
+$$G : S \to a | SS$$
+
+__Ex__ Write a CFG for $\{ a^ib^i \mid i \geq 1 \}$
+
+$$G : S \to ab | aSb$$
+
+
+__Ex__ $L = 	\{ w \in {0,1}^* \mid \text{ $w$ is a palindrome } \}$
+
+Need:
+$$0,1,00,11$$
+
+$$S \to 0|1|00|11$$
+$$S \to 0S0 | 1S1$$
+
+or 
+
+$$S \to 0|1|\epsilon$$
+$$S \to 0S0|1S1$$
+
+
+__Ex__ $\{ a^nb^{2n} \mid n \geq 1 \}$
+
+$$S \to abb|aSbb$$
+
+__Ex__ $\{ a^n b^m \mid n \geq 1, n \leq m \leq 2n \}$
+
+$$S \to ab|abb|aSb|aSbb$$
+
+__Ex__ $L_a = \{ a^i b^j \mid i > j, j \geq 0 \}$
+
+$$S_a \to aS_a b | A$$
+$$A \to a | aA$$
+
+## 3.4 Closure Properties for CFG's
+
+__Ex__ $L_{\neq} = \{ a^ib^j \mid i \neq j$
+
+$$S \to S_a | S_b$$
+$$S_a \to aS_a b | A$$
+$$S_b \to aS_b b | B$$
+$$A \to aA | a$$
+$$B \to bB | b$$
+
+__Note__ This means context free grammars are closed under union (informally).
+
+__Ex__ $L_{c} = a^ib^ja^mb^n | i>j, n>m$
+
+$$S \to S_a S_b$$
+
+__Note__ This means context free grammars are closed under concatenation (informally).
+
+__Ex__ Context free grammar for $(L_a)^*$
+
+$$S \to \epsilon | S_aS $$
+
+__Note__ This means context free grammars are closed under Kleene Closure (informally).
+
+__Theorem__ Context-free languages are closed under:
+\begin{enumerate}
+\item[(i)] Union
+\item[(ii)] Concatenation
+\item[(iii)] Kleene Closure
+\end{enumerate}
+
+## 3.5 Why not Intersection and Complementation?
+
+__Fact__ $L = \{ a^i b^i c^i \mid i \geq 1 \}$ is not context free.
+
+$\{a^i b^i c^j \mid i \geq 1 \}$ is context free.
+$\{a^j b^i c^i \mid i \geq 1 \}$ is context free.
+Notice their intersection is the language above that is not context free. So 
+context free languages are not closed under intersection.
+
+What about $\bar{L}$?
+
+
+$w \in L$ means there is at least one a,b,c and a's before b's and b's before c's and #a = #b and #b = #c 
+
+\begin{enumerate}
+\item no a
+\item no b
+\item no c
+\item ...b...a... 
+\item ...c...b... 
+\item num a's not equal to num b's
+\item num b's not equal to num c's
+	
+\end{enumerate}
+	
+So complement is union of
+
+\begin{enumerate}
+\item $L((b+c)^*)$
+\item $L((a+c)^*)$
+\item $L((a+b)^*)$
+\item $L((a+b+c)^* b (a+b+c)^* a (a+b+c)^*)$
+\item $sim.$
+\item $\{ a^i b^j c^k \mid i \neq j \}$ 
+\item $\{ a^i b^j c^k \mid j \neq k \}$ 
+\end{enumerate}
+
+So $\bar{L}$ is context-free, which implies that there exists a context-free 
+language whose complement is not context free.
+
+## 3.5 Ambiguity in Grammars
+
+Given a parse tree, we can talk about a corresponding left-most derivation.
+
+$$E \to E + E | E * E | a | b$$
+
+$$E \implies E + E \implies a + E \implies a + E * E \implies a + b * E \implies a + b* a$$
+$$E \implies E * E \implies a + E * E \implies a + b * E \implies a + b * a$$
+
+This is the same sentence being derived with distinct left-most derivations that have
+distinct corresponding parse trees.
+
+__Def__ A grammar $G$ is **ambiguous** if some sentence admits two-distinct parse trees,
+which is the same as saying there exist two distinct left-most derivations for a sentence.
+	
+Deciding whether a grammar is ambiguous is an undecidable problem.
+
+## 3.7 Parsing Problem for CFG
+
+Given CFG $G$ and string $w$, is $w \in L(G)$?
+We could try derivations until we hit $w$, but the grammar may be *not clean*. What do we mean by that? 
+
+(1) There may be useless nonterminals. This means starting starting from $A$, you can never derive a sentence of terminals or starting from the start symbol $S$, you can never derive $A$. In this case, $A$ is useless.
+
+
+\begin{center}
+No
+$$A \implies w, w \in T^*$$
+or no
+$$S \implies uAv$$
+
+\end{center}
+
+(2) Unit production
+$$A \to B$$
+Issue? 
+$$S \implies $$
+$$ \vdots $$
+$$ \implies A$$
+$$ \implies B $$
+$$ \vdots$$
+
+
+(3) Epsilon-productions
+
+Issue?
+$$ A \to \epsilon$$
+$$S \implies \ldots$$
+$$ \implies .........................$$
+$$ \implies ......$$
+$$\vdots$$
+$$ \implies .......................$$
+
+__Def__ **Normal Form of CFG** A grammar $G$ for a language $L$ is in normal form provided the following conditions are met:
+
+\begin{enumerate}
+\item Each nonterminal of $G$ appears in the derivation of some strin gin $L$.
+\item No rules of the form $A \to B$, where $A,B$ are nonterminals.
+\item If $\epsilon$ is not in $L$, then no rules of the form $A \to \epsilon.$
+\end{enumerate}
+
+Given a CFG, we can always find an equivalent in CFG in a normal form.
+
+__Def__ **Chomsky Normal Form**: Productions are of the form $A \to BC$ or $A \to a$, where $A,B,C$ are nonterminals and $a$ is a terminal. 
+
+__Def__ **Greibach Normal Form** Productions are of the form $A \to a \alpha$ where $A$ is a nonterminal, $a$ is a terminal, and $\alpha$ is a string of terminals and nonterminals.
+
+__Thm__ For every context free language, there is a CFG that is in Chomsky normal form; also, there is a CFG that is in Greibach normal form.
+
+__Ex__ 
+$$S \to aS | bS | a | b$$
+This is normal, but not in Chomsky Normal Form.
+$$S \to AS | BS | a | b$$
+$$A \to a$$
+$$B \to b$$
+This is in Chomsky Normal Form. Let's look at the derivation for $abba$
+$$S \implies AS \implies ABS \implies ABBS \implies aBBS \implies abBS \implies abbS \implies abba$$
+
+Notice, whenever we use a rule of the form $A \to BC$, we increase the length of the string by 1. Whenever we use a rule of the form $A \to a$, we do not increase the length. 
+
+In general, for a $w \in L(G)$ with $|w| = n$, the derivation for $w$ has at most $n - 1$ uses of rules of the form $A \to BC$ and at most $n$ uses of the form $A \to a$. Therefore, for $w$, there exists a derivation of at most $2n - 1$ steps.
+
+Notice, if a grammar is in Chomsky Normal Form, then any derivations corresponding parse tree is a binary tree. The height of this tree is at most $2n - 1$. The number of binary trees of height at most $2n - 1$ is bounded, so we can try all the derivations.
+
+In fact, the *CYK Algorithm* can be used in $O(n^3)$ time to determine whether a sentence is in the language generated by a grammar in Chomsky Normal Form.
+
+
+## 3.8 Push-Down Automata (Informal)
+```
+input
+	_________________________
+	|	|	|	...		|	|
+	-------------------------
+		 ^
+		 |
+		 |
+		 |-finite state control
+		 |
+		 |
+		 v
+		 stack
+```
+In each step the machine consults the current state, the input symbol, and the state of the stack.
+What can happen in one transition?
+
+- it can change state
+- it replace top of the stack with something else
+
+
+```
+				a,X|R
+q	------------------------> p
+```
+This transition represents reading $a$ from the input, and replacing $X$ from the stack with $R$.
+
+If $a = \epsilon$, then no input is read, maybe stack is consulted.
+
+*Unlike the book, the professor will allow the stack component $X$ to be $\epsilon$, which means no matter what is on the stack, the transition can be completed.*
+
+Machine comes with a bottom of stack marker, the *sentinel*, which is denoted $Z_0$.
+
+Suppose the stack currently has $XYZ_0$. 
+
+- If we say replace $X$ with $B$, then this means pop $X$ out and push $B$ in. So $XYZ_0 \to BYZ_0$.
+- If we say replace $X$ with $BC$, then we mean pop $X$ out and push $C$ and then $B$. So $XYZ_0 \to BCYZ_0$.
+
+PDA $M$ accepts string $w$ if when started from initial state, all input is can be read and $M$ can go to a final state. 
+The state of the stack does not matter. The language of $M$ is just the set of all strings that $M$ accepts, as usual.
+
+## 3.8 Formal Treatment of PDA

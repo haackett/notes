@@ -216,3 +216,17 @@ pub fn num_divisors(n: &u64) -> u64 {
     }
     cnt
 }
+
+macro_rules! continued_fraction {
+    ($a:expr, $b:expr ; $iterations:expr) => (
+        ($a).zip($b)
+            .take($iterations)
+            .collect::<Vec<_>>().iter()
+            .rev()
+            .fold(0 as f64, |acc: f64, &(x, y)| {
+                x as f64 + (y as f64 / acc)
+            })
+    );
+
+    ($a:expr, $b:expr) => (continued_fraction!($a, $b ; 1000));
+}

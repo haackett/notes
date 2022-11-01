@@ -10,6 +10,7 @@
 \setlength{\parskip}{1em} % Set space when paragraphs are used
 \usepackage{amssymb}
 \usepackage{amsmath}
+\usepackage{amsthm}
 \usepackage{tcolorbox}
 \usepackage{mathtools}
 \usepackage{tikz-cd}
@@ -22,12 +23,13 @@
 \newpage
 }
 
+\theoremstyle{definition}
+
 % Self Explanatory
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{definition}{Definition}[section]
 \newtheorem{corollary}{Corollary}[theorem]
 \newtheorem{lemma}[theorem]{Lemma}
-\newenvironment{proof}{\paragraph{Proof}}{\hfill$\square$}
 
 % Other
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor} %Floor function
@@ -132,7 +134,9 @@ a,b\in F:$
 	\item Let $F$ be a field and $S$ a set. Then define $F^S$ as the set of all functions $f: S \rightarrow F$. $F^S$ forms a vector space.
 \end{enumerate}
 
-
+\section{Linear Maps}
+\section{Matrices}
+\section{Computing with Matrcies}
 
 
 
@@ -349,6 +353,723 @@ d_1	&	& 0\\
 =
 d_i[\vec{v}_i]_\mathcal{B}
 $$
+
+Similarly, going in reverse:
+
+If $\mathcal{B} = 	\{ \vec{v}_1, \ldots, \vec{v}_n \}$ such that $T(\vec{v}_i)=
+d_i\vec{v}_i$ for some scalars $d_i$. Then let $\vec{v} \in V$ be arbitrary. We
+have
+$$\vec{v} = c_1 \vec{v}_1 + \ldots c_n \vec{v}_n$$
+and
+$$[\vec{v}]_\mathcal{B} = 
+\begin{bmatrix}
+	c_1 \\
+	\vdots \\
+	c_n \\
+\end{bmatrix}
+.$$
+
+Applying $T$ to $\vec{v}$:
+
+$$T(\vec{v}) = c_1T(\vec{v}_1) + \ldots + c_nT(\vec{v}_n)$$
+$$= c_1d_1\vec{v}_1 + \ldots + c_n d_n \vec{v}_n$$
+
+Applying $[\cdot]_\mathcal{B}$ gives:
+
+$$[T(\vec{v})]_\mathcal{B} = [c_1d_1\vec{v}_1 + \ldots + c_n d_n
+\vec{v}_n]_\mathcal{B}$$
+$$=
+\begin{bmatrix}
+	c_1d_1 \\
+	\vdots \\
+	c_nd_n \\
+\end{bmatrix}
+\in \mathbb{R}^n
+$$
+Finally:
+$$[T(\vec{v})]_\mathcal{B} =
+\begin{bmatrix}
+	d_1 &  & 0 \\
+	 & \ddots &  \\
+	0 &  & d_n \\
+\end{bmatrix}
+\begin{bmatrix}
+	c_1 \\
+	\vdots \\
+	c_n \\
+\end{bmatrix}
+=
+D[\vec{v}]_\mathcal{B}
+$$
+
+\subsection{}
+\begin{definition}
+	Let $T : V \to V$  be F-linear. If $T(\vec{v}) = \lambda \vec{v}$ for
+	$\lambda \in F$ and $\vec{v} \in V$ with $\vec{v} \neq \vec{0}$, then we
+	call $\lambda$ an eigenvalue (ev) for $T$ and $\vec{v}$ an eigenvector
+	$(\vec{ev})$ associated to $\lambda$.
+\end{definition}
+
+\subsection{}
+\begin{theorem}
+	Let $T: V \to V$ be F-linear and $V$ f.d. 
+	\begin{enumerate}
+		\item[(i)] $T$ is diagonalizable $\iff \exists \mathcal{B},$ a basis for
+			$V$ such that $\mathcal{B}$ consists of eigenvectors of $T$.
+		\item[(ii)]	If $\mathcal{B} = 	\{ \vec{v}_1, \ldots, \vec{v}_n \}$ is
+			such basis of eigenvectors of $T$, then
+			$$[T]_\mathcal{B}^\mathcal{B}$$
+			is diagonal and its diagonal entries are the eigenvalues of $T$.
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	HW
+\end{proof}
+
+
+
+\subsection{Example}
+
+Diagonalize 
+$$
+\begin{bmatrix}
+	1 & 3 \\
+	4 & 2 \\
+\end{bmatrix}
+,
+$$
+if possible.
+
+Want $\lambda \in \mathbb{R}$ such that
+$$
+\begin{bmatrix}
+	1 & 3 \\
+	4 & 2 \\
+\end{bmatrix}
+\begin{bmatrix}
+	x_1 \\
+	x_2 \\
+\end{bmatrix}
+=
+\lambda
+\begin{bmatrix}
+	x_1 \\
+	x_2 \\
+\end{bmatrix}
+$$
+and
+$$
+\begin{bmatrix}
+	x_1 \\
+	x_2 \\
+\end{bmatrix}
+\neq
+\vec{0}
+$$
+
+First write as:
+
+$$A\vec{x} = \lambda \vec{x}, x = 
+\begin{bmatrix}
+	x_1 \\
+	x_2 \\
+\end{bmatrix}
+.
+$$
+
+$$A\vec{x} - \lambda \vec{x} = \vec{0}$$
+$$A\vec{x} - \lambda I\vec{x} = \vec{0}$$
+$$(A - \lambda I)\vec{x} = \vec{0}$$
+
+Since $\vec{x} \neq \vec{0}$, we must have
+$$\text{det}(A - \lambda I) = 0$$
+So we have
+$$
+\left(
+\begin{bmatrix}
+	1 & 3 \\
+	4 & 2 \\
+\end{bmatrix}
+-
+\begin{bmatrix}
+	\lambda & 0 \\
+	0 & \lambda \\
+\end{bmatrix}
+\right)
+\begin{bmatrix}
+	x_1 \\
+	x_2 \\
+\end{bmatrix}
+=
+\vec{0}
+$$
+Only possible when
+
+$$
+\begin{vmatrix}
+	1-\lambda & 3 \\
+	4 & 2-\lambda \\
+\end{vmatrix}
+=0
+$$
+Need
+$$(1-\lambda)(2-\lambda) - 12 = 0$$
+$$\lambda^2-3\lambda - 10 = 0$$
+$$(\lambda -5)(\lambda +2) = 0$$
+
+So the eigenvalues of $A$ are 5 and -2. So
+$$D = 
+\begin{bmatrix}
+	-2 & 0 \\
+	0 & 5 \\
+\end{bmatrix}
+.
+$$
+Now find the eigenvectors
+
+For $\lambda = -2$, solve $A\vec{x} = -2\vec{x}$ or $(A + 2I)\vec{x} = \vec{0}$.
+
+$$
+\left(
+\begin{bmatrix}
+	1 & 3 \\
+	4 & 2 \\
+\end{bmatrix}
++
+\begin{bmatrix}
+	2 & 0 \\
+	0 & 2 \\
+\end{bmatrix}
+\right)
+\vec{x}
+=
+\begin{bmatrix}
+	3 & 3 \\
+	4 & 4 \\
+\end{bmatrix}
+\vec{x}
+=
+0
+$$
+A solution is:
+$$\vec{x} = 
+\begin{bmatrix}
+	1 \\
+	-1 \\
+\end{bmatrix}
+$$
+and is a eigenvector associated to $\lambda = -2$.
+
+For $\lambda = 5$, solve $A\vec{x} = 5\vec{x}$ or $(A + 5I)\vec{x} = \vec{0}$.
+$$
+\left(
+\begin{bmatrix}
+	1 & 3 \\
+	4 & 2 \\
+\end{bmatrix}
++
+\begin{bmatrix}
+	5 & 0 \\
+	0 & 5 \\
+\end{bmatrix}
+\right)
+\vec{x}
+=
+\begin{bmatrix}
+	-4 & 3 \\
+	4 & -3 \\
+\end{bmatrix}
+\vec{x}
+=
+\vec{0}
+$$
+
+$$
+\begin{bmatrix}
+	-4 & 3 \\
+	4 & -3 \\
+\end{bmatrix}
+\begin{bmatrix}
+	x_1 \\
+	x_2 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+	0 \\
+	0 \\
+\end{bmatrix}
+$$
+
+Let's solve!
+
+$$
+\begin{bmatrix}
+	-4x_1 + 3x_2 \\
+	4x_1 - 3x_2 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+	0 \\
+	0 \\
+\end{bmatrix}
+$$
+
+\begin{equation}
+	\left \begin{aligned} 
+			-4x_1 + 3x_2 = 0 \\
+			4x_1 - 3x_2 = 0 \\
+	\end{aligned} \right\}
+\end{equation}
+
+Note that elementary row operations do not change this solution set when
+represented as an augmented matrix.
+
+$$
+\begin{bmatrix}
+	-4 & 3 & 0 \\
+	4 & -3 & 0 \\
+\end{bmatrix}
+\sim
+\begin{bmatrix}
+	-4 & 3 & 0 \\
+	0 & 0 & 0 \\
+\end{bmatrix}
+$$
+This represents $-4x_1 + 3x_2 = 0$. A solution is:
+$$\vec{x} = 
+\begin{bmatrix}
+	3 \\
+	4 \\
+\end{bmatrix}
+$$
+
+This is an eigenvector associated to $\lambda = 5$. So a basis for
+$\mathbb{R}^2$ is 
+
+$$\mathcal{B} = \left\{
+	\begin{bmatrix}
+		1 \\
+		-1 \\
+	\end{bmatrix}
+,
+	\begin{bmatrix}
+		3 \\
+		4 \\
+	\end{bmatrix}
+\right\}
+$$
+
+and these are the eigenvalues for $A$
+$$
+\begin{bmatrix}
+	1 & 3 \\
+	4 & 2 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+	1 & 3 \\
+	-1 & 4 \\
+\end{bmatrix}
+\begin{bmatrix}
+	-2 & 0 \\
+	0 & 5 \\
+\end{bmatrix}
+\frac{1}{7}
+\begin{bmatrix}
+	4 & -3 \\
+	1 & 1 \\
+\end{bmatrix}
+$$
+
+So $A = [I]_\mathcal{S}^\mathcal{B} D [I]_\mathcal{B}^\mathcal{S}$.
+\begin{center}
+\begin{tikzcd}[%
+        ,every arrow/.append style={maps to}
+        ,every label/.append style={font=\normalsize}
+		,sep=huge
+        ]
+
+	\mathbb{R}^n \arrow[r, "A"] \arrow[d, "{[I]_\mathcal{S}^{\mathcal{B}}}"'] & \mathbb{R}^n                                             \\
+	\mathbb{R}^n \arrow[r, "D"']                                              & \mathbb{R}^n \arrow[u, "{[I]_\mathcal{B}^\mathcal{S}}"']
+		
+\end{tikzcd}
+\end{center}
+
+
+
+\subsection{}
+
+\begin{theorem}
+	$A \in M_{nn}(F)$ then $\lambda \in F$ is an eigenvalue of $A$ if and only
+	if det$(A-\lambda I) = 0$.
+\end{theorem}
+
+\begin{proof}
+	$\lambda$ is an eigenvalue of $A \iff \exists \vec{v} \in F^n, \vec{v} \neq
+	\vec{0}$ such that
+	$$A\vec{v} = \lambda \vec{v}$$
+	$$A\vec{v}- \lambda I \vec{v} = \vec{0}$$
+	$$(A-\lambda I) \vec{v} = \vec{0}$$
+
+	and this has a solution if and only if the columns of $A-\lambda I$ are lin.
+	dep. if an only if $\text{det}(A-\lambda I) = 0$ by I.M.T.
+\end{proof}
+
+
+\subsection{}
+\begin{theorem}
+	Similar matrices have the same eigenvalues.
+\end{theorem}
+\begin{proof}
+	Let $A,B$ be similar. By definition
+	$$A = PBP^{-1}, \text{	for some invertible matrix $P$}$$
+
+	We want:
+	$$\text{det} (A - \lambda I ) = 0 \iff \text{det} (B - \lambda I) = 0$$
+
+	Note:
+	$$A- \lambda I = PBP^{-1} - \lambda I = PBP^{-1} - \lambda P P^{-1}$$
+	$$=P(BP^{-1} - \lambda P^{-1}) = P(BP^{-1} - \lambda P I P^{-1}) =
+	P(B-\lambda I)P^{-1}$$
+
+	Then:
+
+	$$\text{det} (A - \lambda I) = \text{det}(P(B - \lambda I )P^{-1})$$
+	$$= \text{det}P \text{det}(B - \lambda I )\text{det}P^{-1}$$
+	$$= \text{det}(B - \lambda I)$$
+
+
+\end{proof}
+
+\subsection{}
+\begin{theorem}
+	$T: V \to V, V$ f.d. Let $\mathcal{B}$ be a basis for $V$. Then $\lambda$ is
+	an eigenvalue for $T$ if and only if $\lambda$ is an eigen value for
+	$[T]_\mathcal{B}^\mathcal{B}$.
+\end{theorem}
+
+\begin{proof}
+	Homework.
+\end{proof}
+
+\subsection{}
+\begin{definition}
+	For $A \in M_{n \times n} (F),$ define the characteristic polynomial of $A$
+	to be: 
+
+	$$\text{det}(A - xI_n) \in F[x]$$
+
+	Note: By 5.7, the eigenvalues of $A$ are the roots of this characteristic
+	polynomial (char. poly.).
+\end{definition}
+
+\subsection{Example}
+
+If $$A=
+\begin{bmatrix}
+	2 & 4 \\
+	7 & 9 \\
+\end{bmatrix}
+,$$
+Then
+$$A-xI_2 = 
+\begin{bmatrix}
+	2-x & 4 \\
+	7 & 9-x \\
+\end{bmatrix}
+$$
+$$det(A-xI_2) = (2-x)(9-x) -28 = (x-9)(x-2)) -28 = \underbrace{x^2 -11x -10}$$
+
+\subsection{}
+\begin{theorem}
+	Similar matrices have the same characteristic polynomial.
+\end{theorem}
+\begin{proof}
+	By Homework.
+\end{proof}
+
+\subsection{}
+\begin{definition}
+	$T : V \to V, V$ f.d. Let $\mathcal{B}$ be a basis for $V$. Define the char.
+	poly. of $T$ to be 
+
+	$$\text{det}([T]_\mathcal{B}^\mathcal{B} - x I).$$
+
+	This is well-defined by 5.12.
+\end{definition}
+
+\subsection{Example}
+
+$T_{y=2x}$ from 5.1(b).
+$$[T_{y=2x}] =
+\begin{bmatrix}
+	1 & 0 \\
+	0 & -1 \\
+\end{bmatrix}
+$$
+char. poly. is:
+$$\text{det}(A - xI_n)}=
+\begin{vmatrix} 
+	1-x & 0 \\
+	0   & -1-x \\
+\end{vmatrix} 
+=
+(x-1)(x+1)
+$$
+
+\subsection{``A Very Important Theorem''}
+\begin{theorem}
+	$T : V \to V$, $V$ f.d, $\mathcal{B}$ basis.
+	If $\lambda_1,\ldots,\lambda_m$ are distinct eigenvalues and
+	$\vec{v}_1, \ldots, \vec{v}_m$ are eigenvectors for $\lambda_1, \ldots,
+	\lambda_m$ respectively, then $\vec{v}_1, \ldots, \vec{v}_m$ are linearly
+	independent.
+\end{theorem}
+\begin{proof}
+	BWOC, suppose linearly dependent. Note, $\vec{v}_1 \neq 0$ since $\vec{v}_1$
+	is an eigenvector. Use Theorem 1.15. So at least one vector is a linear
+	combination of the previous ones. We'd like to choose the earliest one.
+	Let $p$ be the smallest integer such that 
+
+	$$\vec{v}_p+1 = c_1 \vec{v}_1 + \ldots c_p \vec{v}_p.$$ 
+
+	So $\{ \vec{v}_1, \ldots, \vec{v}_p \}$ is linearly independent.
+
+	Consider,
+
+	$$T(\vec{v}_{p+1}) = c_1 T (\vec{v}_1) + \ldots + c_p T (\vec{v}_p)$$
+	$$\lambda_{p+1} \vec{v}_{p+1} = c_1 \lambda_1 \vec{v}_1 + \ldots + c_p
+	\lambda_p \vec{v}_p$$
+
+	also:
+	$$\lambda_{p+1} \vec{v}_{p+a} = c_1 \lambda_{p+1} \vec{v}_1 + \ldots + c_p
+	\lambda_{p+1} \vec{v}_p$$
+
+	Subtracting:
+
+	$$0 = c_1(\lambda_1 - \lambda_{p+1} \vec{v}_1) + \ldots + c_p(\lambda_p -
+	\lambda_{p+1})\vec{v}_p$$
+
+	Since these vectors are lin. ind., we must have
+	$$c_1(\lambda_1 - \lambda_{p+1}) = 0$$
+	$$\vdots$$
+	$$c_p(\lambda_p - \lambda_{p+1}) = 0$$
+
+	If $c_1,\ldots,c_p$ are all $0$, the $\vec{v}_{p+1} = \vec{0}$, which is a
+	contradiction. So $c_i \neq 0$ for some $i$. Then
+
+	$$\lambda_i = \lambda_{p+1},$$
+
+	which is a contradiction.
+
+
+\end{proof}
+
+\subsection{}
+\begin{corollary}
+	If $T : V \to V, \text{dim}(T) = n$ and $T$ has $n$ distinct eigenvalues,
+	then $T$ is diagonalizable.
+\end{corollary}
+
+\subsection{Counter Example to the Converse of 5.17}
+\begin{enumerate}
+	\item[(a)] $$I_3 =
+		\begin{bmatrix}
+			1 &0  &0  \\
+			0 &1  &0  \\
+			0 &0  &1  \\
+		\end{bmatrix}
+		$$
+		Characteristic polynomial is $(1-x)^3$. $I_3$ has only 1 eigenvalue, but it is
+		diagonal.
+	
+	\item[(b)] 
+		$$A=
+		\begin{bmatrix}
+			1 & 3 & 3 \\
+			-3 & -5 & -3 \\
+			3 & 3 & 1 \\
+		\end{bmatrix}
+		$$
+		Characteristic polynomial is $-(\lambda - 1)(\lambda+2)^2$, but this
+		matrix is diagonalizable.
+
+		$$P=
+		\begin{bmatrix}
+			1 & -1 & -1 \\
+			-1 & 1 & 0 \\
+			1 & 0 & 1 \\
+		\end{bmatrix}
+		,
+		D = 
+		\begin{bmatrix}
+			1 & 0 & 0 \\
+			0 & -2 & 0 \\
+			0 & 0 & -2 \\
+		\end{bmatrix}
+		$$
+
+		So $A$ and $D$ are similar. Then $A$ has only 2 eigenvalues, but $A$ is
+		diagonalizable.
+
+	\item[(c)]
+		$$A = 
+		\begin{bmatrix}
+			5 & 0 & 0 & 0 \\
+			0 & 5 & 0 & 0 \\
+			1 & 4 & -3 & 0 \\
+			-1 & -2 & 0 & -3 \\
+		\end{bmatrix}
+		$$
+
+		characteristic polynomial is the det$(A - xI_4) = (5-x)^2(-3-x)^2 =
+		(x-5)^2(x + 3)^2$. 
+
+		$$D = 
+		\begin{bmatrix}
+			5 & 0 & 0 & 0 \\
+			0 & 5 & 0 & 0 \\
+			0 & 0 & -3 & 0 \\
+			0 & 0 & 0 & -3 \\
+		\end{bmatrix}
+		,
+		P = 
+		\begin{bmatrix}
+			-8 & -16 & 0 & 0 \\
+			4 & 4 & 0 & 0 \\
+			1 & 0 & 1 & 0 \\
+			0 & 1 & 0 & 1 \\
+		\end{bmatrix}
+		$$
+		So $A=PDP^{-1}$, but $A$ only has 2 eigenvalues.
+\end{enumerate}
+
+\subsection{}
+\begin{definition}
+	Let $F[x]$ be the space of polynomials with coefficients in $F$. For $f(x)
+	\in F[x]$, we say $f(x)$ splits over $F$ if $\exists c,a_1,\ldots,a_n \in F$
+	such that 
+	$$f(x) = c(x-a_1)\ldots(x-a_n)$$
+	Note: $a_1,\ldots, a_n$ are not necessarily distinct.
+\end{definition}
+
+\subsection{Examples}
+\begin{enumerate}
+	\item[(a)] $x^2 + 1 \in \mathbb{R}[x]$ does not split. 
+
+	\item[(b)]
+		$x^2 + 1 \in
+		\mathbb{C}[x]$ does split.
+	\item[(c)] $(x-5)^2(x +3)^2$ splits over $\mathbb{R}$ and $\mathbb{C}$.
+	\item[(d)] $x^2 - 2 = (x - \sqrt{2})(x + \sqrt{2})$, this splits in
+		$\mathbb{C}$ and $\mathbb{R}$, but not $\mathbb{Q}$ since $\sqrt{2}$ is
+		not rational.
+	\item[(e)] $x^n -1$ splits over $\mathbb{C}$ and over $\mathbb{R}$ for $n =
+		1$ or $n = 2$.
+\end{enumerate}
+
+\subsection{}
+\begin{theorem}
+	Let $T : V \to V$, $V$ f.d. If $T$ is diagonalizable, then the
+	characteristic polynomial of $T$ splits.
+\end{theorem}
+\begin{proof}
+	By 5.5(i), let $\mathcal{B}$ by a basis for $T$ consisting of eigenvectors
+	of $T$, and let 
+	$$[T]_\mathcal{B}^\mathcal{B} = D, \text{ $D$ diag($\lambda_1,
+	\ldots,\lambda_n)$ }$$
+	where $\# \mathcal{B} = n$.
+
+	By 5.12 and 5.13, the characteristic polynomial of $T$ is:
+
+	$$\text{det} (D - xI_n)$$
+	$$= \text{det}
+	\begin{bmatrix}
+		\lambda_1 - x & 0 & 0 \\
+		0 & \ddots & 0 \\
+		0 & 0 & \lambda_n - x\\
+	\end{bmatrix}
+	= (\lambda_1 - x)\ldots (\lambda_n - x)
+	,
+	$$
+
+	and this clearly splits.
+\end{proof}	
+
+\subsection{}
+\begin{definition}
+	$T : V \to V$, $V$ f.d. 
+	\begin{enumerate}
+		\item[(i)] If $\lambda$ is an eigenvalue of $T$, then the \textit{algebraic
+			multiplicity} of $\lambda$ is the multiplicity of $\lambda$ as a root
+			of the characteristic polynomial of $T$.
+		\item[(ii)] The eigenspace of $T$ corresponding to $\lambda$ is
+			$$E_\lambda = \text{Ker}(T - \lambda I).$$
+		\item[(iii)] The \textit{geometric multiplicity} of $\lambda$ is 
+			$$\text{dim}(E_\lambda).$$
+	\end{enumerate}
+\end{definition}
+
+\subsection{}
+\begin{theorem}
+	$T : V \to V$, $V$ f.d. If $\lambda$ is an eigenvalue for $T$ with algebraic
+	multiplicity $m$, then $\text{dim}(E_\lambda) \leq m$.
+\end{theorem}
+\begin{proof}
+	Let $p = \text{dim}(E_\lambda)$, then let $\{\vec{v}_1, \ldots, \vec{v}_p
+	\}$ be a basis for $E_\lambda$. So, extend this to a basis for $V$:
+
+	$$\mathcal{B} = \{\vec{v}_1, \ldots, \vec{v}_p, \vec{v}_{p+1},\ldots,
+	\vec{v}_n \}$$
+
+	Then: 
+
+	$$[T]_\mathcal{B}^\mathcal{B} =
+	[[T(\vec{v}_1)]_\mathcal{B}]\ldots[T(\vec{v}_n)]_\mathcal{B}]]$$
+	$$=[[\lambda\vec{v}_1]_\mathcal{B}\ldots [\lambda\vec{v}_p]_\mathcal{B}
+	[T(\vec{v}_{p+1})]_\mathcal{B} \ldots [T(\vec{v}_n)]_\mathcal{B}]$$
+	
+TODO: crazy matrix
+
+	Then the characteristic polynomial of $T$ is
+
+	$$\text{det}(E-xI_n) = (\lambda - x)^p g(x)$$
+
+	So $p \leq m$.
+\end{proof}
+
+\subsection{}
+\begin{theorem}
+	$T : V \to V$, $V$ f.d. Suppose the characteristic polynomial of $T$ splits.
+	Let the characterisitic polynomial be:
+	$$c(x-\lambda_1)^{m_1} \ldots (x - \lambda_p)^{m_p}$$
+	where $m_i$ are the alg. mul. of $\lambda_i$.
+
+	Then $T$ is diagonalizable if and only if $m_i = \text{dim}(E_{\lambda_i}),
+	\forall i.$
+\end{theorem}
+\begin{proof}
+	$\implies$
+
+	By 5.5, since $T$ is diagonalizable, there exists $\mathcal{B} =
+	\{\vec{v}_1, \ldots, \vec{v}_n \}$ such that $\mathcal{B}$ consists of
+	eigenvectors of $T$.
+
+	Define $\mathcal{B}_i = \mathcal{B} \cap E_{\lambda_i}$ for $1 \leq i \leq
+	p$. Note:
+	$$\# \mathcal{B}_i \leq \text{dim}(E_{\lambda_i}) \leq m_i$$ 
+
+	$$n = \sum_{i=1}^p # \mathcal{B}_i \leq \sum_{i=1}^p
+	\text{dim}(E_{\lambda_i}) \leq \sum_{i=1}^p m_i = n$$
+
+	since the characteristic polynomial has degree $n$. So 
+	$$\sum_{i=1}^p (m_i - \text{dim}(E_{\lambda_i})) = 0$$
+
+	So $m_i = \text{dim}(E_{\lambda_i}), \forall i$.
+	
+\end{proof}
+
+
 
 
 \end{document}
